@@ -28,7 +28,7 @@ public class Patches
     public static void GameEndPatch()//([HarmonyArgument(0)] EndGameResult result)
     {
         PeasmodPlugin.Logger.LogInfo("GameEnd");
-        GameEventManager.GameEndEventHandler?.Invoke(null, new GameEventManager.GameEndEventArgs(TempData.EndReason));
+        GameEventManager.GameEndEventHandler?.Invoke(null, new GameEventManager.GameEndEventArgs(EndGameResult.CachedGameOverReason));
     }
     #endregion
 
@@ -50,8 +50,8 @@ public class Patches
     
     #region MeetingEvents
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
-    public static void MeetingEndPatch(ExileController __instance, [HarmonyArgument(0)] GameData.PlayerInfo exiled,
+    [HarmonyPatch(typeof(ExileController), nameof(ExileController.BeginForGameplay))]
+    public static void MeetingEndPatch(ExileController __instance, [HarmonyArgument(0)] NetworkedPlayerInfo exiled,
         [HarmonyArgument(1)] bool tie)
     {
         MeetingEventManager.MeetingEndEventHandler?.Invoke(null, new MeetingEventManager.MeetingEndEventArgs(exiled, tie));

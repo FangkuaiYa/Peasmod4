@@ -21,8 +21,8 @@ public class Janitor : CustomRole
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
 
-        //CanKillOption = new CustomToggleOption("Janitor.CanKill", "Can kill", false);
-        RoleOption = new CustomRoleOption(this, true, CanKillOption);
+        RoleOption = new CustomRoleOption(this);
+        CanKillOption = new CustomToggleOption(MultiMenu.Impostor, "Janitor.CanKill", "Can kill", false);
     }
 
     public override string Name => "Janitor";
@@ -37,7 +37,7 @@ public class Janitor : CustomRole
         return (CanKillOption.Value || Utility.GetImpostors().FindAll(player => !player.IsCustomRole(this)).Count == 0) && base.CanKill(victim);
     }
 
-    public CustomToggleOption CanKillOption = new CustomToggleOption("Janitor.CanKill", "Can kill", false);
+    public CustomToggleOption CanKillOption;
     public CustomRoleOption RoleOption;
     public CustomButton CleanButton;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AmongUs.Data;
 using AmongUs.GameOptions;
 using Peasmod4.API.Events;
 using Peasmod4.API.Networking;
@@ -13,14 +14,14 @@ public static class Extensions
         Rpc<RpcSetCustomRole>.Instance.Send(new RpcSetCustomRole.Data(player, roleTypes));
     }
     
-    public static void RpcSetCustomRole(this GameData.PlayerInfo player, CustomRole baseRole) => RpcSetCustomRole(player.Object, baseRole);
+    public static void RpcSetCustomRole(this NetworkedPlayerInfo player, CustomRole baseRole) => RpcSetCustomRole(player.Object, baseRole);
 
     public static void RpcSetCustomRole(this PlayerControl player, CustomRole baseRole)
     {
         Rpc<RpcSetCustomRole>.Instance.Send(new RpcSetCustomRole.Data(player, baseRole.RoleBehaviour.Role));
     }
 
-    public static CustomRole GetCustomRole(this GameData.PlayerInfo player) => GetCustomRole(player.Object);
+    public static CustomRole GetCustomRole(this NetworkedPlayerInfo player) => GetCustomRole(player.Object);
     
     public static CustomRole GetCustomRole(this PlayerControl player)
     {
@@ -33,7 +34,7 @@ public static class Extensions
         return CustomRoleManager.Roles.Find(role => role.RoleBehaviour.Role == player.Data?.Role.Role);
     }
 
-    public static bool IsCustomRole(this GameData.PlayerInfo player) => IsCustomRole(player.Object);
+    public static bool IsCustomRole(this NetworkedPlayerInfo player) => IsCustomRole(player.Object);
     
     public static bool IsCustomRole(this PlayerControl player)
     {
@@ -43,7 +44,7 @@ public static class Extensions
         return GetCustomRole(player) != null;
     }
     
-    public static bool IsCustomRole(this GameData.PlayerInfo player, CustomRole role) => IsCustomRole(player.Object, role);
+    public static bool IsCustomRole(this NetworkedPlayerInfo player, CustomRole role) => IsCustomRole(player.Object, role);
     
     public static bool IsCustomRole(this PlayerControl player, CustomRole role)
     {
@@ -55,7 +56,7 @@ public static class Extensions
         return player.IsCustomRole(CustomRoleManager.GetRole<T>());
     }
 
-    public static bool IsCustomRole<T>(this GameData.PlayerInfo player) where T : CustomRole => IsCustomRole<T>(player.Object);
+    public static bool IsCustomRole<T>(this NetworkedPlayerInfo player) where T : CustomRole => IsCustomRole<T>(player.Object);
 
     public static bool IsVisibleTo(this PlayerControl source, PlayerControl otherPlayer)
     {
@@ -105,13 +106,13 @@ public static class Extensions
         {
             if (player.Data.Role.IsImpostor)
             {
-                StatsManager.Instance.IncrementStat(StringNames.StatsGamesImpostor);
-                StatsManager.Instance.ResetStat(StringNames.StatsCrewmateStreak);
+                DataManager.Player.Stats.IncrementStat(StatID.GamesAsImpostor);
+                DataManager.Player.Stats.IncrementStat(StatID.CrewmateStreak);
             }
             else
             {
-                StatsManager.Instance.IncrementStat(StringNames.StatsGamesCrewmate);
-                StatsManager.Instance.IncrementStat(StringNames.StatsCrewmateStreak);
+                DataManager.Player.Stats.IncrementStat(StatID.GamesAsCrewmate);
+                DataManager.Player.Stats.IncrementStat(StatID.CrewmateStreak);
             }
             DestroyableSingleton<HudManager>.Instance.MapButton.gameObject.SetActive(true);
             DestroyableSingleton<HudManager>.Instance.ReportButton.gameObject.SetActive(true);

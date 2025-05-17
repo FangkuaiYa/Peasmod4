@@ -29,9 +29,9 @@ public class Patches
     {
         /*if (CustomEndGameManager.IsCustom)
         {
-            TempData.winners.Clear();
+            EndGameResult.CachedWinners.Clear();
             CustomEndGameManager.WinningPlayers.ForEach(player =>
-                TempData.winners.Add(new WinningPlayerData(player.Data)));
+                EndGameResult.CachedWinners.Add(new CachedPlayerData(player.Data)));
         }*/
 
         var overridingRole = CustomRoleManager.Roles.Find(role =>
@@ -49,12 +49,12 @@ public class Patches
         });
         if (overridingRole != null)
         {
-            TempData.winners.Clear();
+            EndGameResult.CachedWinners.Clear();
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 var _ = false;
                 if (overridingRole.DidWin(endGameResult.GameOverReason, player, ref _))
-                    TempData.winners.Add(new WinningPlayerData(player.Data));
+                    EndGameResult.CachedWinners.Add(new CachedPlayerData(player.Data));
             }
         }
         else
@@ -65,8 +65,8 @@ public class Patches
                 {
                     var _ = false;
                     PeasmodPlugin.Logger.LogInfo(customRole.Name + ": " + player.name + " - " + customRole.DidWin(endGameResult.GameOverReason, player, ref _));
-                    if (customRole.DidWin(endGameResult.GameOverReason, player, ref _) && TempData.winners.WrapToSystem().Find(data => data.PlayerName == player.name) == null)
-                        TempData.winners.Add(new WinningPlayerData(player.Data));
+                    if (customRole.DidWin(endGameResult.GameOverReason, player, ref _) && EndGameResult.CachedWinners.WrapToSystem().Find(data => data.PlayerName == player.name) == null)
+                        EndGameResult.CachedWinners.Add(new CachedPlayerData(player.Data));
                 }
             } 
         }
@@ -76,7 +76,7 @@ public class Patches
     [HarmonyPatch(typeof(EndGameManager), nameof(EndGameManager.SetEverythingUp))]
     public static void ChangeColorPatch(EndGameManager __instance)
     {
-        var endReason = CustomEndGameManager.GetCustomEndReason(TempData.EndReason);
+        var endReason = CustomEndGameManager.GetCustomEndReason(EndGameResult.CachedGameOverReason);
         if (endReason != null)
         {
             var reasonText = GameObject.Instantiate(__instance.WinText, __instance.WinText.transform.parent);
@@ -121,7 +121,7 @@ public class Patches
         roleText.lineSpacing = -20f;
         foreach (var keyValuePair in TempRoleRevealText)
         {
-            roleText.text += keyValuePair.Key + (TempData.winners.WrapToSystem().Find(data => data.PlayerName == keyValuePair.Key) == null ? "" : " (\u2605)") + ": " + keyValuePair.Value + "\n";
+            roleText.text += keyValuePair.Key + (EndGameResult.CachedWinners.WrapToSystem().Find(data => data.PlayerName == keyValuePair.Key) == null ? "" : " (\u2605)") + ": " + keyValuePair.Value + "\n";
         }
     }
 

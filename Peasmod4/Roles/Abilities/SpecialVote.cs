@@ -54,7 +54,7 @@ public class SpecialVote
             Dictionary<byte, int> self = CalculateVotes(__instance);
             bool tie;
             KeyValuePair<byte, int> max = self.MaxPair(out tie);
-            GameData.PlayerInfo exiled = GameData.Instance.AllPlayers.ToArray().FirstOrDefault(v => !tie && v.PlayerId == max.Key);
+            NetworkedPlayerInfo exiled = GameData.Instance.AllPlayers.ToArray().FirstOrDefault(v => !tie && v.PlayerId == max.Key);
             MeetingHud.VoterState[] array = new MeetingHud.VoterState[__instance.playerStates.Length];
             for (int i = 0; i < __instance.playerStates.Length; i++)
             {

@@ -20,7 +20,7 @@ public class Traitor : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
         PlayerEventManager.PlayerCompletedTaskEventHandler += OnTaskComplete;
 
-        RoleOption = new CustomRoleOption(this, true);
+        RoleOption = new CustomRoleOption(this);
     }
 
     public override string Name => "Traitor";

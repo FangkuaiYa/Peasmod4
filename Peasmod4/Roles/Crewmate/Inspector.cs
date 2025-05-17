@@ -15,7 +15,9 @@ public class Inspector : CustomRole
 {
     public Inspector(Assembly assembly) : base(assembly)
     {
-        RoleOption = new CustomRoleOption(this, true, FootstepVisibleTimeOption, TimeBetweenOption);
+        RoleOption = new CustomRoleOption(this);
+        FootstepVisibleTimeOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.FootstepVisibleTime", "Time footsteps stay visible", 5f, 1f, new FloatRange(1f, 30f), CustomOption.CooldownFormat);
+        TimeBetweenOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.TimeBetween", "Time between each footstep", 1f, 0.1f, new FloatRange(0.2f, 2f), CustomOption.CooldownFormat);
 
         HudEventManager.HudUpdateEventHandler += OnUpdate;
     }
@@ -28,10 +30,8 @@ public class Inspector : CustomRole
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
 
-    public CustomNumberOption FootstepVisibleTimeOption = new CustomNumberOption("Inspector.FootstepVisibleTime",
-        "Time footsteps stay visible", 5f, NumberSuffixes.Seconds, 1f, new FloatRange(1f, 30f));
-    public CustomNumberOption TimeBetweenOption = new CustomNumberOption("Inspector.TimeBetween",
-        "Time between each footstep", 1f, NumberSuffixes.Seconds, 0.1f, new FloatRange(0.2f, 2f), true);
+    public CustomNumberOption FootstepVisibleTimeOption;
+    public CustomNumberOption TimeBetweenOption;
     public CustomRoleOption RoleOption;
 
     private float _Timer = 0f;

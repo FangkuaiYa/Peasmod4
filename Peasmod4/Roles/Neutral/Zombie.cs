@@ -21,15 +21,12 @@ public class Zombie : CustomRole
 {
     public Zombie(Assembly assembly) : base(assembly)
     {
-        Reach = new CustomStringOption("ZombieReach", "Reach", "Small", "Medium", "Long");
-        InfectCooldown = new CustomNumberOption("ZombieInfectCooldown", "Infect cooldown", 20f, NumberSuffixes.Seconds,
-            2.5f, new FloatRange(10f, 100f), true);
-        SpeedMod = new CustomNumberOption("ZombieSpeedMod", "Speed modification", 1f, NumberSuffixes.Multiplier,
-            0.25f, new FloatRange(0.25f, 1.5f), true);
-        LightMod = new CustomNumberOption("ZombieLightMod", "Vision modification", 1f, NumberSuffixes.Multiplier,
-            0.25f, new FloatRange(0.25f, 1.5f), true);
-        VisibleToEveryone = new CustomToggleOption("ZombieVisibleToEveryone", "Visible to everyone", false);
-        RoleOption = new CustomRoleOption(this, true, Reach, InfectCooldown, SpeedMod, LightMod, VisibleToEveryone);
+        RoleOption = new CustomRoleOption(this);
+        Reach = new CustomStringOption(MultiMenu.Neutral, "ZombieReach", "Reach", new[] { "Small", "Medium", "Long" });
+        InfectCooldown = new CustomNumberOption(MultiMenu.Neutral, "ZombieInfectCooldown", "Infect cooldown", 20f, 2.5f, new FloatRange(10f, 100f), CustomOption.CooldownFormat);
+        SpeedMod = new CustomNumberOption(MultiMenu.Neutral, "ZombieSpeedMod", "Speed modification", 1f, 0.25f, new FloatRange(0.25f, 1.5f), CustomOption.MultiplierFormat);
+        LightMod = new CustomNumberOption(MultiMenu.Neutral, "ZombieLightMod", "Vision modification", 1f, 0.25f, new FloatRange(0.25f, 1.5f), CustomOption.MultiplierFormat);
+        VisibleToEveryone = new CustomToggleOption(MultiMenu.Neutral, "ZombieVisibleToEveryone", "Visible to everyone", false);
 
         GameEventManager.GameStartEventHandler += (_, _) =>
             EndReason = CustomEndGameManager.RegisterCustomEndReason("Zombies infected the crew", ZombieColor, false,
@@ -92,7 +89,7 @@ public class Zombie : CustomRole
 
     public void OnUpdate(object sender, HudEventManager.HudUpdateEventArgs args)
     {
-        if (AmongUsClient.Instance.AmHost && !MadeWinCall)
+        if (AmongUsClient.Instance.AmHost && !MadeWinCall && AmongUsClient.Instance.IsGameStarted)
         {
             if (PlayerControl.AllPlayerControls.WrapToSystem().FindAll(player => player != null && player.Data != null &&
                     !player.IsCustomRole(this) && !player.Data.IsDead && !player.Data.Role.IsImpostor).Count == 0 && PlayerControl.AllPlayerControls.Count > 1)

@@ -62,8 +62,8 @@ public class TurnInvisible
         }
         
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(PlayerPhysics._CoExitVent_d__55), nameof(PlayerPhysics._CoExitVent_d__55.MoveNext))]
-        public static void TurnInvisibleAfterVentPatch(PlayerPhysics._CoExitVent_d__55 __instance)
+        [HarmonyPatch(typeof(PlayerPhysics._CoExitVent_d__56), nameof(PlayerPhysics._CoExitVent_d__56.MoveNext))]
+        public static void TurnInvisibleAfterVentPatch(PlayerPhysics._CoExitVent_d__56 __instance)
         {
             TurnInvisibleAfterResetPatch(__instance.__4__this);
         }

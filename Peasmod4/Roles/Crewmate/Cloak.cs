@@ -21,11 +21,11 @@ public class Cloak : CustomRole
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
 
-        HideCooldown = new CustomNumberOption("CloakHideCooldown", "Hide cooldown", 20f, NumberSuffixes.Seconds, 2.5f,
-            new FloatRange(0, 100), true);
-        HideDuration = new CustomNumberOption("CloakHideDuration", "Hide duration", 5f, NumberSuffixes.Seconds, 2.5f,
-            new FloatRange(0, 50), true);
-        RoleOption = new CustomRoleOption(this, true, HideCooldown, HideDuration);
+        RoleOption = new CustomRoleOption(this);
+        HideCooldown = new CustomNumberOption(MultiMenu.Crewmate, "CloakHideCooldown", "Hide cooldown", 20f, 2.5f,
+            new FloatRange(0, 100), CustomOption.CooldownFormat);
+        HideDuration = new CustomNumberOption(MultiMenu.Crewmate, "CloakHideDuration", "Hide duration", 5f, 2.5f,
+            new FloatRange(0, 50), CustomOption.CooldownFormat);
     }
 
     public override string Name => "Cloak";

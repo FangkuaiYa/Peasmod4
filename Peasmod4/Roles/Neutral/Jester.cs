@@ -23,8 +23,8 @@ public class Jester : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
         PlayerEventManager.PlayerExiledEventHandler += OnPlayerExiled;
 
-        CanVentOption = new CustomToggleOption("JesterCanVent", "Can vent", false);
-        RoleOption = new CustomRoleOption(this, true, CanVentOption);
+        RoleOption = new CustomRoleOption(this);
+        CanVentOption = new CustomToggleOption(MultiMenu.Neutral, "JesterCanVent", "Can vent", false);
     }
 
     public override string Name => "Jester";

@@ -7,10 +7,10 @@ public class MeetingEventManager
     public static EventHandler<MeetingEndEventArgs> MeetingEndEventHandler;
     public class MeetingEndEventArgs : EventArgs
     {
-        public GameData.PlayerInfo ExiledPlayer;
+        public NetworkedPlayerInfo ExiledPlayer;
         public bool Tie;
 
-        public MeetingEndEventArgs(GameData.PlayerInfo exiledPlayer, bool tie)
+        public MeetingEndEventArgs(NetworkedPlayerInfo exiledPlayer, bool tie)
         {
             ExiledPlayer = exiledPlayer;
             Tie = tie;

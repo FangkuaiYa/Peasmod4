@@ -19,9 +19,9 @@ public class Captain : CustomRole
     {
         GameEventManager.GameStartEventHandler += OnStart;
 
+        RoleOption = new CustomRoleOption(this);
         CallCooldownOption =
-            new CustomNumberOption("CaptainCallingCooldown", "Calling cooldown", 10, NumberSuffixes.Seconds, 1, new FloatRange(10, 60));
-        RoleOption = new CustomRoleOption(this, true, CallCooldownOption);
+            new CustomNumberOption(MultiMenu.Crewmate,  "CaptainCallingCooldown", "Calling cooldown", 10, 1, new FloatRange(10, 60), CustomOption.CooldownFormat);
     }
 
     public override string Name => "Captain";

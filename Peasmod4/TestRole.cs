@@ -29,10 +29,10 @@ public class TestRole : CustomRole
     public override bool CanVent() => true;
 
     public CustomButton Button;
-    public CustomToggleOption TestOption = new CustomToggleOption("TestOption", "Test123", false);
-    public CustomNumberOption TestOption4 = new CustomNumberOption("TestOption4", "Test3214", 2.3f, NumberSuffixes.Multiplier, 0.3f, new FloatRange(0f, 3f), true);
-    public CustomNumberOption TestOption5 = new CustomNumberOption("TestOption5", "Test3215", 2f, NumberSuffixes.None, 1, new FloatRange(0, 7), true);
-    public CustomStringOption TestOption6 = new CustomStringOption("TestOption6", "test", "hallo", "mitte", "tschüs!");
+    public CustomToggleOption TestOption = new CustomToggleOption(MultiMenu.Main, "TestOption", "Test123", false);
+    public CustomNumberOption TestOption4 = new CustomNumberOption(MultiMenu.Main, "TestOption4", "Test3214", 2.3f, 0.3f, new FloatRange(0f, 3f), CustomOption.MultiplierFormat);
+    public CustomNumberOption TestOption5 = new CustomNumberOption(MultiMenu.Main, "TestOption5", "Test3215", 2f, 1, new FloatRange(0, 7));
+    public CustomStringOption TestOption6 = new CustomStringOption(MultiMenu.Main, "TestOption6", "test", new[] { "hallo", "mitte", "tschüs!" });
     public CustomRoleOption CustomRoleOption1;
     public CustomEndGameManager.CustomEndReason CustomEndReason;
 
@@ -49,7 +49,7 @@ public class TestRole : CustomRole
                 //Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, test));
                 //test = !test;
                 /*var player = PlayerControl.LocalPlayer;
-                GameData.PlayerInfo data = player.Data;
+                NetworkedPlayerInfo data = player.Data;
                 //GameManager.Instance.RpcEndGame(GameOverReason.HumansDisconnect, false);
                 bool flag2 = (GameOptionsManager.Instance.CurrentGameOptions.GetBool(BoolOptionNames.GhostsDoTasks) || !data.IsDead) && (!AmongUsClient.Instance || !AmongUsClient.Instance.IsGameOver) && player.CanMove;
                 Vector2 truePosition = player.GetTruePosition();
@@ -138,6 +138,6 @@ public class TestRole : CustomRole
         GameEventManager.GameStartEventHandler += Start;
         HudEventManager.HudUpdateEventHandler += OnHudUpdate;
         
-        CustomRoleOption1 = new CustomRoleOption(this, true, new CustomToggleOption("TestOptionForRole", "Test1234555555", false));
+        CustomRoleOption1 = new CustomRoleOption(this/*, true, new CustomToggleOption(MultiMenu.Main, "TestOptionForRole", "Test1234555555", false)*/);
     }
 }

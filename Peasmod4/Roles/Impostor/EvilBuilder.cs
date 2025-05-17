@@ -26,16 +26,15 @@ public class EvilBuilder : CustomRole
 
     public EvilBuilder(Assembly assembly) : base(assembly)
     {
-        VentBuildAmount = new CustomNumberOption("EvilBuilder.VentBuildAmount", "Amount of vents", 0,
-            NumberSuffixes.None, 1f, new FloatRange(0f, 100f), false, true);
-        RoleOption = new CustomRoleOption(this, true, VentBuildAmount);
+        RoleOption = new CustomRoleOption(this);
+        VentBuildAmount = new CustomNumberOption(MultiMenu.Impostor, "EvilBuilder.VentBuildAmount", "Amount of vents", 0, 1f, new FloatRange(0f, 100f));
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }
 
     public override string Name => "Evil Builder";
-    public override string Description => "Test 123";
-    public override string LongDescription => "";
+    public override string Description => "You can make vents";
+    public override string LongDescription => "Make vents on the ship";
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;

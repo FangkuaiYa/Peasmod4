@@ -21,7 +21,7 @@ public class Troll : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
         PlayerEventManager.CanPlayerBeMurderedEventHandler += CanPlayerBeMurdered;
 
-        RoleOption = new CustomRoleOption(this, true);
+        RoleOption = new CustomRoleOption(this);
     }
 
     public override string Name => "Troll";

@@ -18,9 +18,9 @@ public class Sheriff : CustomRole
         PlayerEventManager.PlayerMurderedEventHandler += OnPlayerKilled;
         PlayerEventManager.CanPlayerBeMurderedEventHandler += CanPlayerBeKilled;
 
-        CanKillNeutralsOption = new CustomToggleOption("SheriffCanKillNeutrals", "Can kill neutrals", false);
-        InnocentVictimDiesAsWellOption = new CustomToggleOption("SheriffInnocentVictimDiesAsWell", "Innocent victim dies as well", true);
-        RoleOption = new CustomRoleOption(this, true, CanKillNeutralsOption, InnocentVictimDiesAsWellOption);
+        RoleOption = new CustomRoleOption(this);
+        CanKillNeutralsOption = new CustomToggleOption(MultiMenu.Crewmate, "SheriffCanKillNeutrals", "Can kill neutrals", false);
+        InnocentVictimDiesAsWellOption = new CustomToggleOption(MultiMenu.Crewmate, "SheriffInnocentVictimDiesAsWell", "Innocent victim dies as well", true);
     }
 
     public override string Name => "Sheriff";

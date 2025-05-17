@@ -21,7 +21,7 @@ public class Undertaker : CustomRole
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
 
-        RoleOption = new CustomRoleOption(this, true);
+        RoleOption = new CustomRoleOption(this);
     }
 
     public override string Name => "Undertaker";

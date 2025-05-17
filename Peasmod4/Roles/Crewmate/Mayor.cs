@@ -23,9 +23,8 @@ public class Mayor : CustomRole
 {
     public Mayor(Assembly assembly) : base(assembly)
     {
-        DoubleVotesAmount = new CustomNumberOption("MayorDoubleVoteAmount", "Double-votes amount", 0f,
-            NumberSuffixes.None, 1f, new FloatRange(0, 100), false, true);
-        RoleOption = new CustomRoleOption(this, true, DoubleVotesAmount);
+        RoleOption = new CustomRoleOption(this);
+        DoubleVotesAmount = new CustomNumberOption(MultiMenu.Crewmate, "MayorDoubleVoteAmount", "Double-votes amount", 0f, 1f, new FloatRange(0, 100));
     }
 
     public override string Name => "Mayor";

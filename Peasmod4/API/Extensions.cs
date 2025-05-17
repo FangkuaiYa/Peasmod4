@@ -14,7 +14,7 @@ public static class Extensions
         return PlayerControl.AllPlayerControls.ToArray().ToList().Find(player => player.PlayerId == id);
     }
 
-    public static bool IsLocal(this GameData.PlayerInfo player) => IsLocal(player.Object);
+    public static bool IsLocal(this NetworkedPlayerInfo player) => IsLocal(player.Object);
     
     public static bool IsLocal(this PlayerControl player)
     {

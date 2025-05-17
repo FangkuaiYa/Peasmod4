@@ -29,7 +29,7 @@ public class CustomRoleManager
         role.BlurbName = CustomStringName.CreateAndRegister(customRole.Description);
         role.BlurbNameLong = CustomStringName.CreateAndRegister(customRole.LongDescription);
         role.BlurbNameMed = CustomStringName.CreateAndRegister(customRole.TaskHint ?? "");
-        role.Role = (RoleTypes) (8 + customRole.Id);
+        role.Role = (RoleTypes) (20 + customRole.Id);
         role.NameColor = customRole.Color;
             
         var abilityButtonSettings = ScriptableObject.CreateInstance<AbilityButtonSettings>();

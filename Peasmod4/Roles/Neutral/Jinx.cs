@@ -22,7 +22,7 @@ public class Jinx : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
         HudEventManager.HudUpdateEventHandler += OnUpdate;
 
-        RoleOption = new CustomRoleOption(this, true);
+        RoleOption = new CustomRoleOption(this);
     }
 
     public override string Name => "Jinx";

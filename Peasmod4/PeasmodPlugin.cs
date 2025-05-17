@@ -41,7 +41,9 @@ public partial class PeasmodPlugin : BasePlugin
     {
         Logger = Log;
         ConfigFile = Config;
-        
+
+        LoadModMainOptions();
+
         ResourceManager.LoadAssets();
         RegisterCustomRoleAttribute.Load();
         RegisterEventListenerAttribute.Load();
@@ -65,6 +67,12 @@ public partial class PeasmodPlugin : BasePlugin
         PeasmodPlugin.Logger.LogInfo("HALLO WELLLLLT");
     }
     
+    public static void LoadModMainOptions()
+    {
+        new CustomHeaderOption(MultiMenu.Main, "Gameplay Settings");
+        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "Show roles to dead", true);
+    }
+
     public override void Load()
     {
         #if !API
@@ -87,9 +95,7 @@ public partial class PeasmodPlugin : BasePlugin
             }
         }));
         
-        CustomRegionManager.AddRegion("Peaspowered", "http://au.peasplayer.xyz", 22023);
-
-        ShowRolesToDead = new CustomToggleOption("ShowRolesToDead", "Show roles to dead", true) { AdvancedVanillaOption = true };
+        CustomRegionManager.AddRegion("Peaspowered", "https://auhk.fangkuai.fun", 443);
         
         Harmony.PatchAll();
     }
@@ -140,7 +146,7 @@ public partial class PeasmodPlugin : BasePlugin
         {
             var creditsController = GameObject.Find("MainMenuManager/MainUI/AspectScaler/RightPanel/CreditsSizer/CreditsScreen").GetComponent<CreditsScreenPopUp>().CreditsController;
             creditsController.ClearCredits();
-            CsvReader csvReader = new CsvReader(new StringReader(creditsController.CSVCredits.ToString()));
+            CsvReader csvReader = new CsvReader(new StringReader(DestroyableSingleton<ReferenceDataManager>.Instance.Refdata.credits.ToString()));
             creditsController.ClearCredits();
             while (csvReader.Read())
             {

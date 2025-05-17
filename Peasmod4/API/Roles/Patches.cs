@@ -23,7 +23,7 @@ public class Patches
      */
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(FreeWeekendShower), nameof(FreeWeekendShower.Start))]
+    [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SetRole))]
     public static void InjectRoleBehavioursPatch()
     {
         CustomRoleManager.InjectRoleBehaviours();
@@ -37,8 +37,8 @@ public class Patches
     [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]
     public static void AssignRolesPatch(RoleManager __instance)
     {
-        System.Collections.Generic.List<GameData.PlayerInfo> players =
-            GameData.Instance.AllPlayers.WrapToSystem().FindAll(playerInfo => !playerInfo.Disconnected && !playerInfo.IsDead && playerInfo.Object != null && !playerInfo.Object.isDummy);//new System.Collections.Generic.List<GameData.PlayerInfo>();
+        System.Collections.Generic.List<NetworkedPlayerInfo> players =
+            GameData.Instance.AllPlayers.WrapToSystem().FindAll(playerInfo => !playerInfo.Disconnected && !playerInfo.IsDead && playerInfo.Object != null && !playerInfo.Object.isDummy);//new System.Collections.Generic.List<NetworkedPlayerInfo>();
 
         var crewmates = players.FindAll(player => !player.Role.IsImpostor && player.Role.IsSimpleRole);
         foreach (var playerInfo in crewmates)
@@ -136,7 +136,7 @@ public class Patches
         var role = PlayerControl.LocalPlayer.GetCustomRole();
         if (role != null)
         {
-            bool filter(GameData.PlayerInfo info)
+            bool filter(NetworkedPlayerInfo info)
             {
                 switch (role.Team)
                 {
@@ -202,7 +202,7 @@ public class Patches
     
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PlayerVoteArea), nameof(PlayerVoteArea.SetCosmetics))]
-    public static void ShowRolesCorrectlyInMeetingPatch2(PlayerVoteArea __instance, [HarmonyArgument(0)] GameData.PlayerInfo playerInfo)
+    public static void ShowRolesCorrectlyInMeetingPatch2(PlayerVoteArea __instance, [HarmonyArgument(0)] NetworkedPlayerInfo playerInfo)
     {
         var player = playerInfo.Object;
         if (!player.IsVisibleTo(PlayerControl.LocalPlayer))
@@ -238,12 +238,12 @@ public class Patches
     [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
     public static void ConfirmRoleAfterEject(ExileController __instance)
     {
-        if (__instance.exiled == null || !__instance.exiled.IsCustomRole() || !GameManager.Instance.LogicOptions.GetConfirmImpostor())
+        if (__instance.initData.networkedPlayer == null || !__instance.initData.networkedPlayer.IsCustomRole() || !GameManager.Instance.LogicOptions.GetConfirmImpostor())
             return;
 
-        var role = __instance.exiled.GetCustomRole();
+        var role = __instance.initData.networkedPlayer.GetCustomRole();
         __instance.completeString =
-            $"{__instance.exiled.PlayerName} was {(role.GetMembers().Count == 1 ? "The" : "A")} {role.Name} ({role.TeamText}).";
+            $"{__instance.initData.networkedPlayer.PlayerName} was {(role.GetMembers().Count == 1 ? "The" : "A")} {role.Name} ({role.TeamText}).";
     }
 
     [RegisterEventListener(EventType.GameStart)]
@@ -349,7 +349,7 @@ public class Patches
             __instance.RpcMurderPlayer(target, false);
             return false;
         }
-        GameData.PlayerInfo data = target.Data;
+        NetworkedPlayerInfo data = target.Data;
         if (data == null || data.IsDead || target.inVent || target.MyPhysics.Animations.IsPlayingEnterVentAnimation() || target.MyPhysics.Animations.IsPlayingAnyLadderAnimation() || target.inMovingPlat)
         {
             __instance.logger.Warning("Invalid target data for kill", null);
