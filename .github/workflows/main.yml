@@ -4,7 +4,7 @@ on: ["push", "pull_request"]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Setup .NET
@@ -20,4 +20,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Peasmod4.dll
-          path: Peasmod4/Peasmod4/Peasmod4/bin/Debug/net6.0/Peasmod4.dll
+          path: Peasmod4/Peasmod4/bin/Debug/net6.0/Peasmod4.dll
