@@ -60,11 +60,11 @@ public class RpcUpdateSetting
 
                             break;
                         case CustomRoleOptionType.Chance:
-                            writer.Write((float)option.ValueObject);
+                            writer.Write(Convert.ToInt32(option.ValueObject));
                             option.CustomRole.Chance = Convert.ToInt32(option.ValueObject);
                             break;
                         case CustomRoleOptionType.Count:
-                            writer.Write((float)option.ValueObject);
+                            writer.Write(Convert.ToInt32(option.ValueObject));
                             option.CustomRole.Count = option.CustomRole.MaxCount = Convert.ToInt32(option.ValueObject);
                             break;
                     }

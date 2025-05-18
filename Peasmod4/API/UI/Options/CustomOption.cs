@@ -44,7 +44,8 @@ public class CustomOption
         AllOptions.Add(this);
         Set(ValueObject);
 
-        StringName = CustomStringName.CreateAndRegister(name);
+        StringName = CustomStringName.CreateAndRegister((customRoleOptionType == CustomRoleOptionType.Chance || customRoleOptionType == CustomRoleOptionType.Count) ?
+            ColorString(customRole.Color, customRole.Name) + $" {name}" : name);
     }
 
     protected internal object ValueObject { get; set; }

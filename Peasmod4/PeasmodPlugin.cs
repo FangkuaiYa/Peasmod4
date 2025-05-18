@@ -176,6 +176,20 @@ public partial class PeasmodPlugin : BasePlugin
     [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
     public static void PingPatch(PingTracker __instance)
     {
+        var position = __instance.GetComponent<AspectPosition>();
+        if (AmongUsClient.Instance.IsGameStarted)
+        {
+            __instance.text.alignment = TextAlignmentOptions.Top;
+            position.Alignment = AspectPosition.EdgeAlignments.Top;
+            position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
+        }
+        else
+        {
+            position.Alignment = AspectPosition.EdgeAlignments.LeftTop;
+            __instance.text.alignment = TextAlignmentOptions.TopLeft;
+            position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
+        }
+
         var pingText = "\nPeasmod is (maybe) back!";
 #if DEV
         pingText += $"\n{Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
