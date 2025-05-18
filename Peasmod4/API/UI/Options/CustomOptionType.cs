@@ -8,6 +8,7 @@ public enum CustomOptionType
     String,
     Button
 }
+
 public enum CustomRoleOptionType
 {
     Chance,
@@ -20,5 +21,6 @@ public enum MultiMenu
     Main,
     Crewmate,
     Neutral,
-    Impostor
+    Impostor,
+    NULL
 }

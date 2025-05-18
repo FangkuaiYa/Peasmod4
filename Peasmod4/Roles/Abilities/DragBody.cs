@@ -14,9 +14,12 @@ namespace Peasmod4.Roles.Abilities;
 
 public static class DragBody
 {
-    public static Dictionary<byte, byte> CarriedBodies = new Dictionary<byte, byte>();
+    public static Dictionary<byte, byte> CarriedBodies = new();
 
-    public static bool IsDraggingABody(this PlayerControl player) => CarriedBodies.ContainsKey(player.PlayerId);
+    public static bool IsDraggingABody(this PlayerControl player)
+    {
+        return CarriedBodies.ContainsKey(player.PlayerId);
+    }
 
     [RegisterEventListener(EventType.GameStart)]
     public static void ClearCarriedBodies(object sender, EventArgs args)
@@ -33,13 +36,10 @@ public static class DragBody
             var body = Object.FindObjectsOfType<DeadBody>()?.ToList().Find(body => body.ParentId == bodyId);
             if (body == null)
             {
-                if (player.IsLocal())
-                {
-                    RpcDragBody(player, false, byte.MaxValue);
-                }
+                if (player.IsLocal()) RpcDragBody(player, false, byte.MaxValue);
                 continue;
             }
-            
+
             MoveBodyTowardsPlayer(player, body);
         }
     }
@@ -54,10 +54,12 @@ public static class DragBody
             body.transform.position = Vector3.Lerp(bodyPos, pos, Time.deltaTime + 0.03f);
         }
         else
+        {
             body.transform.position = player.transform.position;
+        }
     }
 
-    [MethodRpc((uint) CustomRpcCalls.DragBody)]
+    [MethodRpc((uint)CustomRpcCalls.DragBody)]
     public static void RpcDragBody(PlayerControl sender, bool enable, byte bodyId)
     {
         if (enable)

@@ -1,14 +1,17 @@
-using Peasmod4.API.Roles;
 using System;
+using Peasmod4.API.Roles;
 using UnityEngine;
 
 namespace Peasmod4.API.UI.Options;
 
 public class CustomNumberOption : CustomOption
 {
-    protected internal CustomNumberOption(MultiMenu multiMenu, string optionName, string name, float value, float increment, FloatRange floatRange,
-        Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None, CustomRole customRole = null)
-        : base(num++, multiMenu, optionName, name, CustomOptionType.Number, value, format, customRoleOptionType, customRole)
+    protected internal CustomNumberOption(MultiMenu multiMenu, string optionName, string name, float value,
+        float increment, FloatRange floatRange,
+        Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None,
+        CustomRole customRole = null)
+        : base(num++, multiMenu, optionName, name, CustomOptionType.Number, value, format, customRoleOptionType,
+            customRole)
     {
         Min = floatRange.min;
         Max = floatRange.max;

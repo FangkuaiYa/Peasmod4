@@ -6,11 +6,14 @@ public enum EventType
     GameStart,
     GameJoined,
     GameEnd,
+
     // Hud events
     HudUpdate,
     HudSetActive,
+
     // Meeting events
     MeetingEnd,
+
     // Player events
     PlayerDied,
     PlayerExiled,

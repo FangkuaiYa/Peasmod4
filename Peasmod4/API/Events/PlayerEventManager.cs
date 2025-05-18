@@ -6,6 +6,15 @@ namespace Peasmod4.API.Events;
 public class PlayerEventManager
 {
     public static EventHandler<PlayerDiedEventArgs> PlayerDiedEventHandler;
+
+    public static EventHandler<PlayerExiledEventArgs> PlayerExiledEventHandler;
+
+    public static EventHandler<PlayerMurderedEventArgs> PlayerMurderedEventHandler;
+
+    public static EventHandler<CanPlayerBeMurderedEventArgs> CanPlayerBeMurderedEventHandler;
+
+    public static EventHandler<PlayerCompletedTaskEventArgs> PlayerCompletedTaskEventHandler;
+
     public class PlayerDiedEventArgs : EventArgs
     {
         public PlayerControl DeadPlayer;
@@ -15,8 +24,7 @@ public class PlayerEventManager
             DeadPlayer = deadPlayer;
         }
     }
-    
-    public static EventHandler<PlayerExiledEventArgs> PlayerExiledEventHandler;
+
     public class PlayerExiledEventArgs : EventArgs
     {
         public PlayerControl ExiledPlayer;
@@ -26,13 +34,12 @@ public class PlayerEventManager
             ExiledPlayer = exiledPlayer;
         }
     }
-    
-    public static EventHandler<PlayerMurderedEventArgs> PlayerMurderedEventHandler;
+
     public class PlayerMurderedEventArgs : EventArgs
     {
+        public MurderResultFlags Flags;
         public PlayerControl Killer;
         public PlayerControl Victim;
-        public MurderResultFlags Flags;
 
         public PlayerMurderedEventArgs(PlayerControl killer, PlayerControl victim, MurderResultFlags flags)
         {
@@ -41,8 +48,7 @@ public class PlayerEventManager
             Flags = flags;
         }
     }
-    
-    public static EventHandler<CanPlayerBeMurderedEventArgs> CanPlayerBeMurderedEventHandler;
+
     public class CanPlayerBeMurderedEventArgs : CancelEventArgs
     {
         public PlayerControl Killer;
@@ -55,7 +61,6 @@ public class PlayerEventManager
         }
     }
 
-    public static EventHandler<PlayerCompletedTaskEventArgs> PlayerCompletedTaskEventHandler;
     public class PlayerCompletedTaskEventArgs : EventArgs
     {
         public PlayerControl Player;

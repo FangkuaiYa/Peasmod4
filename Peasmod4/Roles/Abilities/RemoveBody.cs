@@ -7,13 +7,13 @@ namespace Peasmod4.Roles.Abilities;
 
 public static class RemoveBody
 {
-    [MethodRpc((uint) CustomRpcCalls.RemoveBody)]
+    [MethodRpc((uint)CustomRpcCalls.RemoveBody)]
     public static void RpcRemoveBody(this PlayerControl player, byte bodyId)
     {
         var body = GameObject.FindObjectsOfType<DeadBody>()?.ToList().Find(body => body.ParentId == bodyId);
         if (body == null)
             return;
-        
+
         body.gameObject.Destroy();
     }
 }

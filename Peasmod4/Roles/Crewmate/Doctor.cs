@@ -8,7 +8,6 @@ using Peasmod4.API.UI.Buttons;
 using Peasmod4.API.UI.Options;
 using Peasmod4.Resources;
 using Peasmod4.Roles.Abilities;
-using Reactor.Utilities.Extensions;
 using UnityEngine;
 
 namespace Peasmod4.Roles.Crewmate;
@@ -18,10 +17,16 @@ namespace Peasmod4.Roles.Crewmate;
 #endif
 public class Doctor : CustomRole
 {
+    public CustomButton ReviveButton;
+
+    public CustomNumberOption ReviveCooldown;
+    public CustomRoleOption RoleOption;
+
     public Doctor(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        ReviveCooldown = new CustomNumberOption(MultiMenu.Crewmate, "Doctor.ReviveCooldown", "Revive cooldown", 20f, 5f, new FloatRange(0f, 120f), CustomOption.CooldownFormat);
+        ReviveCooldown = new CustomNumberOption(MultiMenu.Crewmate, "Doctor.ReviveCooldown", "Revive cooldown", 20f, 5f,
+            new FloatRange(0f, 120f), CustomOption.CooldownFormat);
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }
@@ -34,10 +39,6 @@ public class Doctor : CustomRole
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
 
-    public CustomNumberOption ReviveCooldown;
-    public CustomRoleOption RoleOption;
-    public CustomButton ReviveButton;
-
     public void OnGameStart(object sender, EventArgs args)
     {
         ReviveButton = new CustomButton("DoctorRevive", () =>
@@ -49,7 +50,9 @@ public class Doctor : CustomRole
             player.NetTransform.RpcSnapTo(body.TruePosition);
             //ReviveButton.ObjectTarget.Destroy();
         }, "Revive", ResourceManager.RevivePlayerButton, player => player.IsCustomRole(this) && !player.Data
-            .IsDead, _ => true, new CustomButton.CustomButtonOptions(targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
-            () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f), targetOutline: Color, maxCooldown: ReviveCooldown.Value));
+            .IsDead, _ => true, new CustomButton.CustomButtonOptions(
+            targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
+            () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f),
+            targetOutline: Color, maxCooldown: ReviveCooldown.Value));
     }
 }

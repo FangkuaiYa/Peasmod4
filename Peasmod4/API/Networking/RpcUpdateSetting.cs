@@ -44,30 +44,31 @@ public class RpcUpdateSetting
                     writer.Write((bool)option.ValueObject);
                     break;
                 case CustomOptionType.Number:
+                {
+                    switch (option.CustomRoleOptionType)
                     {
-                        switch (option.CustomRoleOptionType)
-                        {
-                            case CustomRoleOptionType.None:
-                                switch ((option as CustomNumberOption).IntSafe)
-                                {
-                                    case true:
-                                        writer.WritePacked((int)(float)option.ValueObject);
-                                        break;
-                                    case false:
-                                        writer.Write((float)option.ValueObject);
-                                        break;
-                                }
-                                break;
-                            case CustomRoleOptionType.Chance:
-                                writer.Write((float)option.ValueObject);
-                                option.CustomRole.Chance = Convert.ToInt32(option.ValueObject);
-                                break;
-                            case CustomRoleOptionType.Count:
-                                writer.Write((float)option.ValueObject);
-                                option.CustomRole.Count = option.CustomRole.MaxCount = Convert.ToInt32(option.ValueObject);
-                                break;
-                        }
+                        case CustomRoleOptionType.None:
+                            switch ((option as CustomNumberOption).IntSafe)
+                            {
+                                case true:
+                                    writer.WritePacked((int)(float)option.ValueObject);
+                                    break;
+                                case false:
+                                    writer.Write((float)option.ValueObject);
+                                    break;
+                            }
+
+                            break;
+                        case CustomRoleOptionType.Chance:
+                            writer.Write((float)option.ValueObject);
+                            option.CustomRole.Chance = Convert.ToInt32(option.ValueObject);
+                            break;
+                        case CustomRoleOptionType.Count:
+                            writer.Write((float)option.ValueObject);
+                            option.CustomRole.Count = option.CustomRole.MaxCount = Convert.ToInt32(option.ValueObject);
+                            break;
                     }
+                }
                     break;
                 case CustomOptionType.String:
                     writer.WritePacked((int)option.ValueObject);
@@ -127,7 +128,7 @@ public class RpcUpdateSetting
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.HandleRpc))]
     public static class HandleRpc
     {
-        static void Postfix([HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader)
+        private static void Postfix([HarmonyArgument(0)] byte callId, [HarmonyArgument(1)] MessageReader reader)
         {
             switch (callId)
             {

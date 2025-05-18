@@ -7,8 +7,6 @@ using Peasmod4.API.UI.Buttons;
 using Peasmod4.API.UI.EndGame;
 using Peasmod4.API.UI.Options;
 using Peasmod4.Resources;
-using Peasmod4.Roles.Abilities;
-using Reactor.Networking.Rpc;
 using UnityEngine;
 
 namespace Peasmod4;
@@ -18,6 +16,30 @@ namespace Peasmod4;
 #endif
 public class TestRole : CustomRole
 {
+    public CustomButton Button;
+    public CustomEndGameManager.CustomEndReason CustomEndReason;
+    public CustomRoleOption CustomRoleOption1;
+
+    public bool test = true;
+    public CustomToggleOption TestOption;
+    public CustomNumberOption TestOption4;
+    public CustomNumberOption TestOption5;
+    public CustomStringOption TestOption6;
+
+    public TestRole(Assembly assembly) : base(assembly)
+    {
+        GameEventManager.GameStartEventHandler += Start;
+        HudEventManager.HudUpdateEventHandler += OnHudUpdate;
+
+        CustomRoleOption1 = new CustomRoleOption(this, MultiMenu.Main);
+        TestOption = new CustomToggleOption(MultiMenu.Main, "TestOption", "Test123", false);
+        TestOption4 = new CustomNumberOption(MultiMenu.Main, "TestOption4", "Test3214", 2.3f, 0.3f,
+            new FloatRange(0f, 3f), CustomOption.MultiplierFormat);
+        TestOption5 = new CustomNumberOption(MultiMenu.Main, "TestOption5", "Test3215", 2f, 1, new FloatRange(0, 7));
+        TestOption6 =
+            new CustomStringOption(MultiMenu.Main, "TestOption6", "test", new[] { "hallo", "mitte", "tschüs!" });
+    }
+
     public override string Name => "Peasplayer";
     public override string Description => "Incredible Person";
     public override string LongDescription => "An incredible Person that is currently rewriting Peasmod";
@@ -26,22 +48,17 @@ public class TestRole : CustomRole
     public override Enums.Visibility Visibility => Enums.Visibility.Everyone;
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
-    public override bool CanVent() => true;
 
-    public CustomButton Button;
-    public CustomToggleOption TestOption = new CustomToggleOption(MultiMenu.Main, "TestOption", "Test123", false);
-    public CustomNumberOption TestOption4 = new CustomNumberOption(MultiMenu.Main, "TestOption4", "Test3214", 2.3f, 0.3f, new FloatRange(0f, 3f), CustomOption.MultiplierFormat);
-    public CustomNumberOption TestOption5 = new CustomNumberOption(MultiMenu.Main, "TestOption5", "Test3215", 2f, 1, new FloatRange(0, 7));
-    public CustomStringOption TestOption6 = new CustomStringOption(MultiMenu.Main, "TestOption6", "test", new[] { "hallo", "mitte", "tschüs!" });
-    public CustomRoleOption CustomRoleOption1;
-    public CustomEndGameManager.CustomEndReason CustomEndReason;
+    public override bool CanVent()
+    {
+        return true;
+    }
 
-    public bool test = true;
-    
     public void Start(object sender, EventArgs args)
     {
         PeasmodPlugin.Logger.LogInfo("test2");
-        CustomEndReason = CustomEndGameManager.RegisterCustomEndReason("Peasplayer wins (obviously)", Color, false, false);
+        CustomEndReason =
+            CustomEndGameManager.RegisterCustomEndReason("Peasplayer wins (obviously)", Color, false, false);
         Button = new CustomButton("Peasplayer", () =>
             {
                 PeasmodPlugin.Logger.LogInfo("test");
@@ -110,12 +127,10 @@ public class TestRole : CustomRole
                 }
                 PeasmodPlugin.Logger.LogInfo("test8: " + (usable == null));
                 */
-            }, "Hallo", ResourceManager.PlaceholderButton, 
-            player => player.IsCustomRole(this), player => player.IsCustomRole(this), new CustomButton.CustomButtonOptions(maxCooldown: 0f, true, 3f,
-                () =>
-                {
-                    PeasmodPlugin.Logger.LogInfo("test123333");
-                }, false, 3));
+            }, "Hallo", ResourceManager.PlaceholderButton,
+            player => player.IsCustomRole(this), player => player.IsCustomRole(this),
+            new CustomButton.CustomButtonOptions(0f, true, 3f,
+                () => { PeasmodPlugin.Logger.LogInfo("test123333"); }, false, 3));
     }
 
     public void OnHudUpdate(object sender, HudEventManager.HudUpdateEventArgs args)
@@ -125,19 +140,12 @@ public class TestRole : CustomRole
 
     public override bool DidWin(GameOverReason gameOverReason, PlayerControl player, ref bool overrides)
     {
-        return (GameManager.Instance.DidHumansWin(gameOverReason) || CustomEndReason.EndReason == gameOverReason) && player.IsCustomRole(this);
+        return (GameManager.Instance.DidHumansWin(gameOverReason) || CustomEndReason.EndReason == gameOverReason) &&
+               player.IsCustomRole(this);
     }
 
     public override bool CanKill(PlayerControl victim = null)
     {
         return true;
-    }
-
-    public TestRole(Assembly assembly) : base(assembly)
-    {
-        GameEventManager.GameStartEventHandler += Start;
-        HudEventManager.HudUpdateEventHandler += OnHudUpdate;
-        
-        CustomRoleOption1 = new CustomRoleOption(this/*, true, new CustomToggleOption(MultiMenu.Main, "TestOptionForRole", "Test1234555555", false)*/);
     }
 }

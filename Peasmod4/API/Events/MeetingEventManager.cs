@@ -5,6 +5,7 @@ namespace Peasmod4.API.Events;
 public class MeetingEventManager
 {
     public static EventHandler<MeetingEndEventArgs> MeetingEndEventHandler;
+
     public class MeetingEndEventArgs : EventArgs
     {
         public NetworkedPlayerInfo ExiledPlayer;

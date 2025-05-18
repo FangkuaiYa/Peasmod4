@@ -9,7 +9,7 @@ namespace Peasmod4.API.UI.EndGame;
 [HarmonyPatch]
 public class Patches
 {
-    public static Dictionary<string, string> TempRoleRevealText = new ();
+    public static Dictionary<string, string> TempRoleRevealText = new();
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnGameEnd))]
@@ -22,7 +22,7 @@ public class Patches
             TempRoleRevealText.Add(player.name, role.NameColor.ToTextColor() + role.NiceName + "</color>");
         }
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnGameEnd))]
     public static void ReplaceWinnersPatch(AmongUsClient __instance, [HarmonyArgument(0)] EndGameResult endGameResult)
@@ -60,15 +60,17 @@ public class Patches
         else
         {
             foreach (var customRole in CustomRoleManager.Roles)
+            foreach (var player in
+                     PlayerControl
+                         .AllPlayerControls) // .WrapToSystem().FindAll(player => player.IsCustomRole(customRole))
             {
-                foreach (var player in PlayerControl.AllPlayerControls) // .WrapToSystem().FindAll(player => player.IsCustomRole(customRole))
-                {
-                    var _ = false;
-                    PeasmodPlugin.Logger.LogInfo(customRole.Name + ": " + player.name + " - " + customRole.DidWin(endGameResult.GameOverReason, player, ref _));
-                    if (customRole.DidWin(endGameResult.GameOverReason, player, ref _) && EndGameResult.CachedWinners.WrapToSystem().Find(data => data.PlayerName == player.name) == null)
-                        EndGameResult.CachedWinners.Add(new CachedPlayerData(player.Data));
-                }
-            } 
+                var _ = false;
+                PeasmodPlugin.Logger.LogInfo(customRole.Name + ": " + player.name + " - " +
+                                             customRole.DidWin(endGameResult.GameOverReason, player, ref _));
+                if (customRole.DidWin(endGameResult.GameOverReason, player, ref _) && EndGameResult.CachedWinners
+                        .WrapToSystem().Find(data => data.PlayerName == player.name) == null)
+                    EndGameResult.CachedWinners.Add(new CachedPlayerData(player.Data));
+            }
         }
     }
 
@@ -83,7 +85,7 @@ public class Patches
             reasonText.name = "CustomReasonText";
             reasonText.transform.localPosition = new Vector3(0f, 2.7f, -14f);
             reasonText.text = "<size=50%>" + endReason.ReasonText + "</size>";
-            
+
             if (endReason.Color.HasValue)
             {
                 __instance.BackgroundBar.material.SetColor("_Color", endReason.Color.Value);
@@ -93,7 +95,7 @@ public class Patches
 
         var roleTextObject = new GameObject("RoleRevealText");
         roleTextObject.layer = LayerMask.NameToLayer("UI");
-        
+
         var aspectPos = roleTextObject.AddComponent<AspectPosition>();
         aspectPos.Alignment = AspectPosition.EdgeAlignments.Left;
         aspectPos.DistanceFromEdge = new Vector3(10.2f, -2.05f, -13f);
@@ -105,7 +107,7 @@ public class Patches
         scroller.transform.localScale = Vector3.one;
         scroller.active = true;
         scroller.velocity = new Vector2(0, 0);
-        scroller.ContentYBounds = new FloatRange(0, (TempRoleRevealText.Count - 12) * (0.25f));
+        scroller.ContentYBounds = new FloatRange(0, (TempRoleRevealText.Count - 12) * 0.25f);
         scroller.enabled = true;
 
         var inner = new GameObject("Inner");
@@ -115,14 +117,16 @@ public class Patches
 
         var textChild = new GameObject("RoleText");
         textChild.transform.parent = inner.transform;
-        
+
         var roleText = textChild.AddComponent<TextMeshPro>();
         roleText.fontSize = 2f;
         roleText.lineSpacing = -20f;
         foreach (var keyValuePair in TempRoleRevealText)
-        {
-            roleText.text += keyValuePair.Key + (EndGameResult.CachedWinners.WrapToSystem().Find(data => data.PlayerName == keyValuePair.Key) == null ? "" : " (\u2605)") + ": " + keyValuePair.Value + "\n";
-        }
+            roleText.text += keyValuePair.Key +
+                             (EndGameResult.CachedWinners.WrapToSystem()
+                                 .Find(data => data.PlayerName == keyValuePair.Key) == null
+                                 ? ""
+                                 : " (\u2605)") + ": " + keyValuePair.Value + "\n";
     }
 
     [HarmonyPostfix]
@@ -148,7 +152,7 @@ public class Patches
 
         return true;
     }
-    
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameManager), nameof(GameManager.DidImpostorsWin))]
     public static bool DidImpostorsWinPatch([HarmonyArgument(0)] GameOverReason gameOverReason, ref bool __result)

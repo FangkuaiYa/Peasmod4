@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,6 @@ using AmongUs.GameOptions;
 using HarmonyLib;
 using Il2CppSystem.Text;
 using Peasmod4.API.Networking;
-using Reactor.Networking.Rpc;
 using Reactor.Utilities;
 using Reactor.Utilities.Extensions;
 using TMPro;
@@ -670,6 +668,7 @@ public static class Patches
 
                 return false;
             }
+
             return true;
         }
     }
@@ -686,6 +685,7 @@ public static class Patches
 
                 return false;
             }
+
             return true;
         }
     }

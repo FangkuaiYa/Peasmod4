@@ -6,25 +6,15 @@ using Reactor.Networking.Rpc;
 
 namespace Peasmod4.API.Networking;
 
-[RegisterCustomRpc((uint) CustomRpcCalls.TriggerEvent)]
+[RegisterCustomRpc((uint)CustomRpcCalls.TriggerEvent)]
 public class RpcTriggerEvent : PlayerCustomRpc<PeasmodPlugin, RpcTriggerEvent.Data>
 {
     public RpcTriggerEvent(PeasmodPlugin plugin, uint id) : base(plugin, id)
     {
     }
-    
-    public readonly struct Data
-    {
-        public readonly string Event;
-
-        public Data(string _event)
-        {
-            Event = _event;
-        }
-    }
 
     public override RpcLocalHandling LocalHandling => RpcLocalHandling.After;
-    
+
     public override void Write(MessageWriter writer, Data data)
     {
         writer.Write(data.Event);
@@ -42,6 +32,16 @@ public class RpcTriggerEvent : PlayerCustomRpc<PeasmodPlugin, RpcTriggerEvent.Da
             case "Start":
                 GameEventManager.GameStartEventHandler.Invoke(null, EventArgs.Empty);
                 break;
+        }
+    }
+
+    public readonly struct Data
+    {
+        public readonly string Event;
+
+        public Data(string _event)
+        {
+            Event = _event;
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Peasmod4.Roles.Impostor;
 #endif
 public class Undertaker : CustomRole
 {
+    public CustomButton DragBodyButton;
+    public CustomButton DropBodyButton;
+    public CustomRoleOption RoleOption;
+
     public Undertaker(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
@@ -32,23 +36,22 @@ public class Undertaker : CustomRole
     public override Enums.Team Team => Enums.Team.Impostor;
     public override bool HasToDoTasks => false;
 
-    public CustomButton DragBodyButton;
-    public CustomButton DropBodyButton;
-    public CustomRoleOption RoleOption;
-    
     public void OnGameStart(object sender, EventArgs args)
     {
-        DragBodyButton = new CustomButton("Undertaker-DragBody", () =>
-        {
-            DragBody.RpcDragBody(PlayerControl.LocalPlayer, true, DragBodyButton.ObjectTarget.GetComponent<DeadBody>().ParentId);
-        }, "Drag", ResourceManager.DragBodyButton, player => player.IsCustomRole(this) && !player.Data
-            .IsDead, player => !player.IsDraggingABody(), new CustomButton.CustomButtonOptions(targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
-            () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f), targetOutline: Color));
-        
-        DropBodyButton = new CustomButton("Undertaker-DropBody", () =>
-        {
-            DragBody.RpcDragBody(PlayerControl.LocalPlayer, false, byte.MaxValue);
-        }, "Drop", ResourceManager.DropBodyButton, player => player.IsCustomRole(this) && !player.Data
-            .IsDead, player => player.IsDraggingABody());
+        DragBodyButton = new CustomButton("Undertaker-DragBody",
+            () =>
+            {
+                DragBody.RpcDragBody(PlayerControl.LocalPlayer, true,
+                    DragBodyButton.ObjectTarget.GetComponent<DeadBody>().ParentId);
+            }, "Drag", ResourceManager.DragBodyButton, player => player.IsCustomRole(this) && !player.Data
+                .IsDead, player => !player.IsDraggingABody(), new CustomButton.CustomButtonOptions(
+                targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
+                () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f),
+                targetOutline: Color));
+
+        DropBodyButton = new CustomButton("Undertaker-DropBody",
+            () => { DragBody.RpcDragBody(PlayerControl.LocalPlayer, false, byte.MaxValue); }, "Drop",
+            ResourceManager.DropBodyButton, player => player.IsCustomRole(this) && !player.Data
+                .IsDead, player => player.IsDraggingABody());
     }
 }

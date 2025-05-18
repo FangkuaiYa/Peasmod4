@@ -15,6 +15,10 @@ namespace Peasmod4.Roles.Neutral;
 #endif
 public class Traitor : CustomRole
 {
+    public bool HasBetrayed;
+
+    public CustomRoleOption RoleOption;
+
     public Traitor(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
@@ -32,10 +36,6 @@ public class Traitor : CustomRole
     public override Enums.Team Team => HasBetrayed ? Enums.Team.Impostor : Enums.Team.Alone;
     public override bool HasToDoTasks => true;
 
-    public CustomRoleOption RoleOption;
-    
-    public bool HasBetrayed;
-    
     public void OnGameStart(object sender, EventArgs args)
     {
         HasBetrayed = false;
@@ -45,7 +45,7 @@ public class Traitor : CustomRole
     {
         if (args.Player.IsLocal() && args.Player.IsCustomRole(this) && args.Player.AllTasksCompleted())
         {
-            args.Player.RpcSetVanillaRole(RoleTypes.Impostor);    
+            args.Player.RpcSetVanillaRole(RoleTypes.Impostor);
             HasBetrayed = true;
         }
     }

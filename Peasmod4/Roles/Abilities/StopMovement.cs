@@ -29,13 +29,13 @@ public class StopMovement
             player.moveable = false;
             if (Minigame.Instance != null)
                 Minigame.Instance.ForceClose();
-            
+
             player.MyPhysics.ResetMoveState();
             player.MyPhysics.body.velocity = Vector2.zero;
         }
     }
 
-    [MethodRpc((uint) CustomRpcCalls.StopMovement)]
+    [MethodRpc((uint)CustomRpcCalls.StopMovement)]
     public static void RpcToggleMovement(PlayerControl sender)
     {
         IsMovementStopped = !IsMovementStopped;

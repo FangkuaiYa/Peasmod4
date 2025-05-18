@@ -13,11 +13,19 @@ namespace Peasmod4.Roles.Crewmate;
 #endif
 public class Inspector : CustomRole
 {
+    private float _Timer;
+
+    public CustomNumberOption FootstepVisibleTimeOption;
+    public CustomRoleOption RoleOption;
+    public CustomNumberOption TimeBetweenOption;
+
     public Inspector(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        FootstepVisibleTimeOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.FootstepVisibleTime", "Time footsteps stay visible", 5f, 1f, new FloatRange(1f, 30f), CustomOption.CooldownFormat);
-        TimeBetweenOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.TimeBetween", "Time between each footstep", 1f, 0.1f, new FloatRange(0.2f, 2f), CustomOption.CooldownFormat);
+        FootstepVisibleTimeOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.FootstepVisibleTime",
+            "Time footsteps stay visible", 5f, 1f, new FloatRange(1f, 30f), CustomOption.CooldownFormat);
+        TimeBetweenOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.TimeBetween",
+            "Time between each footstep", 1f, 0.1f, new FloatRange(0.2f, 2f), CustomOption.CooldownFormat);
 
         HudEventManager.HudUpdateEventHandler += OnUpdate;
     }
@@ -25,17 +33,11 @@ public class Inspector : CustomRole
     public override string Name => "Inspector";
     public override string Description => "Follow the bad guys";
     public override string LongDescription => "";
-    public override Color Color => new Color(58f / 255f, 255f / 255f, 127f / 255f);
+    public override Color Color => new(58f / 255f, 255f / 255f, 127f / 255f);
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
 
-    public CustomNumberOption FootstepVisibleTimeOption;
-    public CustomNumberOption TimeBetweenOption;
-    public CustomRoleOption RoleOption;
-
-    private float _Timer = 0f;
-    
     public void OnUpdate(object sender, HudEventManager.HudUpdateEventArgs args)
     {
         if (!PlayerControl.LocalPlayer.IsCustomRole(this))

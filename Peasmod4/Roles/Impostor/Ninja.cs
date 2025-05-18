@@ -17,13 +17,20 @@ namespace Peasmod4.Roles.Impostor;
 #endif
 public class Ninja : CustomRole
 {
+    public CustomNumberOption HideCooldown;
+    public CustomNumberOption HideDuration;
+    public CustomRoleOption RoleOption;
+    public CustomButton TurnInvisibleButton;
+
     public Ninja(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
 
         RoleOption = new CustomRoleOption(this);
-        HideCooldown = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideCooldown", "Hide cooldown", 20f, 2.5f, new FloatRange(0, 100), CustomOption.CooldownFormat);
-        HideDuration = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideDuration", "Hide duration", 5f, 2.5f, new FloatRange(0, 50), CustomOption.CooldownFormat);
+        HideCooldown = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideCooldown", "Hide cooldown", 20f, 2.5f,
+            new FloatRange(0, 100), CustomOption.CooldownFormat);
+        HideDuration = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideDuration", "Hide duration", 5f, 2.5f,
+            new FloatRange(0, 50), CustomOption.CooldownFormat);
     }
 
     public override string Name => "Ninja";
@@ -35,22 +42,21 @@ public class Ninja : CustomRole
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
     public override bool HasToDoTasks => false;
-    
-    public CustomNumberOption HideCooldown;
-    public CustomNumberOption HideDuration;
-    public CustomRoleOption RoleOption;
-    public CustomButton TurnInvisibleButton;
 
     public void OnGameStart(object sender, EventArgs args)
     {
-        TurnInvisibleButton = new CustomButton("NinjaHide", () =>
+        TurnInvisibleButton = new CustomButton("NinjaHide",
+            () =>
             {
-                Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, true));
-            }, "Hide", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f), 
-            player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(HideCooldown.Value, true, HideDuration.Value,
+                Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(
+                    new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, true));
+            }, "Hide", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f),
+            player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(
+                HideCooldown.Value, true, HideDuration.Value,
                 () =>
                 {
-                    Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, false));
+                    Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(
+                        new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, false));
                 }));
     }
 }

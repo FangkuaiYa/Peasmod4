@@ -11,12 +11,17 @@ namespace Peasmod4.API.UI.EndGame;
 public class CustomEndGameManager
 {
     public static int EndReasonsId;
-    public static List<CustomEndReason> EndReasons = new List<CustomEndReason>();
+    public static List<CustomEndReason> EndReasons = new();
 
-    public static CustomEndReason GetCustomEndReason(GameOverReason gameOverReason) =>
-        EndReasons.Find(endReason => endReason.EndReason == gameOverReason);
-    
-    public static bool IsCustomEndReason(GameOverReason gameOverReason) => GetCustomEndReason(gameOverReason) != null;
+    public static CustomEndReason GetCustomEndReason(GameOverReason gameOverReason)
+    {
+        return EndReasons.Find(endReason => endReason.EndReason == gameOverReason);
+    }
+
+    public static bool IsCustomEndReason(GameOverReason gameOverReason)
+    {
+        return GetCustomEndReason(gameOverReason) != null;
+    }
 
     public static CustomEndReason RegisterCustomEndReason(string reasonText, Color? color, bool crewWon,
         bool impostorWon)
@@ -35,13 +40,14 @@ public class CustomEndGameManager
 
     public class CustomEndReason
     {
-        public GameOverReason EndReason;
-        public string ReasonText;
         public Color? Color;
         public bool CrewWon;
+        public GameOverReason EndReason;
         public bool ImpostorWon;
+        public string ReasonText;
 
-        public CustomEndReason(GameOverReason endReason, string reasonText, Color? color, bool crewWon, bool impostorWon)
+        public CustomEndReason(GameOverReason endReason, string reasonText, Color? color, bool crewWon,
+            bool impostorWon)
         {
             EndReason = endReason;
             ReasonText = reasonText;

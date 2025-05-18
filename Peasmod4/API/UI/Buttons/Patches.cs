@@ -10,7 +10,7 @@ namespace Peasmod4.API.UI.Buttons;
 public class Patches
 {
     public static GameObject LeftBottomParent;
-    
+
     [RegisterEventListener(EventType.GameStart)]
     public static void AddLeftButtonParent(object sender, EventArgs args)
     {
@@ -18,7 +18,7 @@ public class Patches
         LeftBottomParent = GameObject.Instantiate(buttonsParent.FindChild("BottomRight").gameObject, buttonsParent);
         LeftBottomParent.name = "BottomLeft";
         LeftBottomParent.transform.DestroyChildren();
-        
+
         var aspectPos = LeftBottomParent.GetComponent<AspectPosition>();
         aspectPos.Alignment = AspectPosition.EdgeAlignments.LeftBottom;
         aspectPos.AdjustPosition();
@@ -29,9 +29,7 @@ public class Patches
         gridArrange.CheckCurrentChildren();
         gridArrange.ArrangeChilds();
 
-        for (int i = 0; i < CustomButtonManager.AllButtons.Count; i++)
-        {
+        for (var i = 0; i < CustomButtonManager.AllButtons.Count; i++)
             CustomButtonManager.AllButtons[i].Start(null, EventArgs.Empty);
-        }
     }
 }

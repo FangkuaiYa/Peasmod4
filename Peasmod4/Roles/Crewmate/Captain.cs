@@ -15,13 +15,18 @@ namespace Peasmod4.Roles.Crewmate;
 #endif
 public class Captain : CustomRole
 {
+    public CustomButton CallButton;
+    public CustomNumberOption CallCooldownOption;
+    public CustomRoleOption RoleOption;
+
     public Captain(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnStart;
 
         RoleOption = new CustomRoleOption(this);
         CallCooldownOption =
-            new CustomNumberOption(MultiMenu.Crewmate,  "CaptainCallingCooldown", "Calling cooldown", 10, 1, new FloatRange(10, 60), CustomOption.CooldownFormat);
+            new CustomNumberOption(MultiMenu.Crewmate, "CaptainCallingCooldown", "Calling cooldown", 10, 1,
+                new FloatRange(10, 60), CustomOption.CooldownFormat);
     }
 
     public override string Name => "Captain";
@@ -34,15 +39,10 @@ public class Captain : CustomRole
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
 
-    public CustomButton CallButton;
-    public CustomNumberOption CallCooldownOption;
-    public CustomRoleOption RoleOption;
-
     public void OnStart(object sender, EventArgs args)
     {
-        CallButton = new CustomButton("CaptainCall", () =>
-        {
-            PlayerControl.LocalPlayer.CmdReportDeadBody(null);
-        }, "Call", Icon, player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(CallCooldownOption.Value));
+        CallButton = new CustomButton("CaptainCall", () => { PlayerControl.LocalPlayer.CmdReportDeadBody(null); },
+            "Call", Icon, player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true,
+            new CustomButton.CustomButtonOptions(CallCooldownOption.Value));
     }
 }

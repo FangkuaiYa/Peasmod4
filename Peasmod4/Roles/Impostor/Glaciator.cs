@@ -16,13 +16,21 @@ namespace Peasmod4.Roles.Impostor;
 #endif
 public class Glaciator : CustomRole
 {
+    public CustomNumberOption CooldownOption;
+    public CustomNumberOption DurationOption;
+    public CustomButton FreezeButton;
+    public CustomRoleOption RoleOption;
+
     public Glaciator(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        CooldownOption = new CustomNumberOption(MultiMenu.Impostor, "Glaciator.FreezeCooldown", "Freeze cooldown", 20f, 2.5f, new FloatRange(10f, 100f), CustomOption.CooldownFormat);
-        DurationOption = new CustomNumberOption(MultiMenu.Impostor, "Glaciator.FreezeDuration", "Freeze duration", 5f, 2.5f, new FloatRange(5f, 50f), CustomOption.CooldownFormat);
+        CooldownOption = new CustomNumberOption(MultiMenu.Impostor, "Glaciator.FreezeCooldown", "Freeze cooldown", 20f,
+            2.5f, new FloatRange(10f, 100f), CustomOption.CooldownFormat);
+        DurationOption = new CustomNumberOption(MultiMenu.Impostor, "Glaciator.FreezeDuration", "Freeze duration", 5f,
+            2.5f, new FloatRange(5f, 50f), CustomOption.CooldownFormat);
 
-        PeasmodPlugin.Logger.LogError("FUCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        PeasmodPlugin.Logger.LogError(
+            "FUCK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }
@@ -35,15 +43,12 @@ public class Glaciator : CustomRole
     public override Enums.Team Team => Enums.Team.Impostor;
     public override bool HasToDoTasks => false;
 
-    public CustomNumberOption CooldownOption;
-    public CustomNumberOption DurationOption;
-    public CustomRoleOption RoleOption;
-    public CustomButton FreezeButton;
-
     public void OnGameStart(object sender, EventArgs args)
     {
-        FreezeButton = new CustomButton("Glaciator.FreezeButton", () => StopMovement.RpcToggleMovement(PlayerControl.LocalPlayer), "Freeze",
+        FreezeButton = new CustomButton("Glaciator.FreezeButton",
+            () => StopMovement.RpcToggleMovement(PlayerControl.LocalPlayer), "Freeze",
             ResourceManager.PlaceholderButton, p => !p.Data.IsDead && p.IsCustomRole(this), _ => true,
-            new CustomButton.CustomButtonOptions(CooldownOption.Value, true, DurationOption.Value, () => StopMovement.RpcToggleMovement(PlayerControl.LocalPlayer)));
+            new CustomButton.CustomButtonOptions(CooldownOption.Value, true, DurationOption.Value,
+                () => StopMovement.RpcToggleMovement(PlayerControl.LocalPlayer)));
     }
 }

@@ -16,6 +16,10 @@ namespace Peasmod4.Roles.Neutral;
 #endif
 public class Troll : CustomRole
 {
+    public static Dictionary<byte, CustomEndGameManager.CustomEndReason> EndReasons = new();
+
+    public CustomRoleOption RoleOption;
+
     public Troll(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
@@ -33,28 +37,21 @@ public class Troll : CustomRole
     public override Enums.Team Team => Enums.Team.Alone;
     public override bool HasToDoTasks => false;
 
-    public CustomRoleOption RoleOption;
-
-    public static Dictionary<byte, CustomEndGameManager.CustomEndReason> EndReasons =
-        new Dictionary<byte, CustomEndGameManager.CustomEndReason>();
-    
     public override bool DidWin(GameOverReason gameOverReason, PlayerControl player, ref bool overrides)
     {
         return EndReasons.ContainsKey(player.PlayerId) && EndReasons[player.PlayerId].EndReason == gameOverReason;
     }
-    
+
     public void OnGameStart(object sender, EventArgs args)
     {
         EndReasons.Clear();
         foreach (var player in PlayerControl.AllPlayerControls)
-        {
             if (player.IsCustomRole(this))
             {
                 PeasmodPlugin.Logger.LogInfo("Registered Reason: " + player.name);
                 EndReasons.Add(player.PlayerId,
                     CustomEndGameManager.RegisterCustomEndReason("Troll won", Color, false, false));
             }
-        }
     }
 
     public void CanPlayerBeMurdered(object sender, PlayerEventManager.CanPlayerBeMurderedEventArgs args)

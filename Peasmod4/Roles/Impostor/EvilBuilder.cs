@@ -27,7 +27,8 @@ public class EvilBuilder : CustomRole
     public EvilBuilder(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        VentBuildAmount = new CustomNumberOption(MultiMenu.Impostor, "EvilBuilder.VentBuildAmount", "Amount of vents", 0, 1f, new FloatRange(0f, 100f));
+        VentBuildAmount = new CustomNumberOption(MultiMenu.Impostor, "EvilBuilder.VentBuildAmount", "Amount of vents",
+            0, 1f, new FloatRange(0f, 100f));
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }

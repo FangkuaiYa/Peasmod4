@@ -2,7 +2,8 @@ namespace Peasmod4.API.UI.Options;
 
 public class CustomStringOption : CustomOption
 {
-    protected internal CustomStringOption(MultiMenu menu, string optionName, string name, string[] values, int startingId = 0) :
+    protected internal CustomStringOption(MultiMenu menu, string optionName, string name, string[] values,
+        int startingId = 0) :
         base(num++, menu, optionName, name, CustomOptionType.String, startingId)
     {
         Values = values;

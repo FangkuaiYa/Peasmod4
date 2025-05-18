@@ -17,6 +17,10 @@ namespace Peasmod4.Roles.Impostor;
 #endif
 public class Janitor : CustomRole
 {
+    public CustomToggleOption CanKillOption;
+    public CustomButton CleanButton;
+    public CustomRoleOption RoleOption;
+
     public Janitor(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
@@ -32,14 +36,13 @@ public class Janitor : CustomRole
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
     public override bool HasToDoTasks => false;
+
     public override bool CanKill(PlayerControl victim = null)
     {
-        return (CanKillOption.Value || Utility.GetImpostors().FindAll(player => !player.IsCustomRole(this)).Count == 0) && base.CanKill(victim);
+        return (CanKillOption.Value ||
+                Utility.GetImpostors().FindAll(player => !player.IsCustomRole(this)).Count == 0) &&
+               base.CanKill(victim);
     }
-
-    public CustomToggleOption CanKillOption;
-    public CustomRoleOption RoleOption;
-    public CustomButton CleanButton;
 
     public void OnGameStart(object sender, EventArgs args)
     {

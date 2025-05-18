@@ -17,6 +17,12 @@ namespace Peasmod4.Roles.Crewmate;
 #endif
 public class Cloak : CustomRole
 {
+    public CustomNumberOption HideCooldown;
+    public CustomNumberOption HideDuration;
+    public CustomRoleOption RoleOption;
+
+    public CustomButton TurnInvisibleButton;
+
     public Cloak(Assembly assembly) : base(assembly)
     {
         GameEventManager.GameStartEventHandler += OnGameStart;
@@ -38,22 +44,20 @@ public class Cloak : CustomRole
     public override Enums.Team Team => Enums.Team.Crewmate;
     public override bool HasToDoTasks => true;
 
-    public CustomNumberOption HideCooldown;
-    public CustomNumberOption HideDuration;
-    public CustomRoleOption RoleOption;
-    
-    public CustomButton TurnInvisibleButton;
-
     public void OnGameStart(object sender, EventArgs args)
     {
-        TurnInvisibleButton = new CustomButton("CloakHide", () =>
+        TurnInvisibleButton = new CustomButton("CloakHide",
+            () =>
             {
-                Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, true));
-            }, "Hide", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f), 
-            player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(HideCooldown.Value, true, HideDuration.Value,
+                Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(
+                    new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, true));
+            }, "Hide", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f),
+            player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(
+                HideCooldown.Value, true, HideDuration.Value,
                 () =>
                 {
-                    Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, false));
+                    Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(
+                        new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, false));
                 }));
     }
 }

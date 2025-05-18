@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AmongUs.Data;
 using AmongUs.GameOptions;
-using Peasmod4.API.Events;
 using Peasmod4.API.Networking;
 using Reactor.Networking.Rpc;
 
@@ -13,39 +12,51 @@ public static class Extensions
     {
         Rpc<RpcSetCustomRole>.Instance.Send(new RpcSetCustomRole.Data(player, roleTypes));
     }
-    
-    public static void RpcSetCustomRole(this NetworkedPlayerInfo player, CustomRole baseRole) => RpcSetCustomRole(player.Object, baseRole);
+
+    public static void RpcSetCustomRole(this NetworkedPlayerInfo player, CustomRole baseRole)
+    {
+        RpcSetCustomRole(player.Object, baseRole);
+    }
 
     public static void RpcSetCustomRole(this PlayerControl player, CustomRole baseRole)
     {
         Rpc<RpcSetCustomRole>.Instance.Send(new RpcSetCustomRole.Data(player, baseRole.RoleBehaviour.Role));
     }
 
-    public static CustomRole GetCustomRole(this NetworkedPlayerInfo player) => GetCustomRole(player.Object);
-    
+    public static CustomRole GetCustomRole(this NetworkedPlayerInfo player)
+    {
+        return GetCustomRole(player.Object);
+    }
+
     public static CustomRole GetCustomRole(this PlayerControl player)
     {
         if (player == null)
             return null;
-        
+
         if (player.Data.Role == null)
             return null;
-        
+
         return CustomRoleManager.Roles.Find(role => role.RoleBehaviour.Role == player.Data?.Role.Role);
     }
 
-    public static bool IsCustomRole(this NetworkedPlayerInfo player) => IsCustomRole(player.Object);
-    
+    public static bool IsCustomRole(this NetworkedPlayerInfo player)
+    {
+        return IsCustomRole(player.Object);
+    }
+
     public static bool IsCustomRole(this PlayerControl player)
     {
         if (player == null)
             return false;
-        
+
         return GetCustomRole(player) != null;
     }
-    
-    public static bool IsCustomRole(this NetworkedPlayerInfo player, CustomRole role) => IsCustomRole(player.Object, role);
-    
+
+    public static bool IsCustomRole(this NetworkedPlayerInfo player, CustomRole role)
+    {
+        return IsCustomRole(player.Object, role);
+    }
+
     public static bool IsCustomRole(this PlayerControl player, CustomRole role)
     {
         return GetCustomRole(player) == role;
@@ -56,16 +67,19 @@ public static class Extensions
         return player.IsCustomRole(CustomRoleManager.GetRole<T>());
     }
 
-    public static bool IsCustomRole<T>(this NetworkedPlayerInfo player) where T : CustomRole => IsCustomRole<T>(player.Object);
+    public static bool IsCustomRole<T>(this NetworkedPlayerInfo player) where T : CustomRole
+    {
+        return IsCustomRole<T>(player.Object);
+    }
 
     public static bool IsVisibleTo(this PlayerControl source, PlayerControl otherPlayer)
     {
         if (otherPlayer == null || source == null || otherPlayer.Data == null || source.Data == null)
             return false;
-        
+
         if (otherPlayer.Data.IsDead && PeasmodPlugin.ShowRolesToDead.Value)
             return true;
-        
+
         if (source.IsCustomRole())
         {
             if (source.GetCustomRole().IsVisibleTo(source, otherPlayer))
@@ -87,14 +101,14 @@ public static class Extensions
         player.cosmetics.nameText.text = $"{player.name}\n<size=80%>{role.NiceName}</size>";
         player.cosmetics.nameText.color = role.NameColor;
     }
-    
+
     public static void SetNameFromRole(this PlayerVoteArea voteArea, PlayerControl player)
     {
         var role = player.Data.Role;
         voteArea.NameText.text = $"{player.name}\n<size=80%>{role.NiceName}</size>";
         voteArea.NameText.color = role.NameColor;
     }
-    
+
     public static void SetRoleAfterIntro(this PlayerControl player, RoleTypes role)
     {
         player.roleAssigned = true;
@@ -114,16 +128,19 @@ public static class Extensions
                 DataManager.Player.Stats.IncrementStat(StatID.GamesAsCrewmate);
                 DataManager.Player.Stats.IncrementStat(StatID.CrewmateStreak);
             }
+
             DestroyableSingleton<HudManager>.Instance.MapButton.gameObject.SetActive(true);
             DestroyableSingleton<HudManager>.Instance.ReportButton.gameObject.SetActive(true);
             DestroyableSingleton<HudManager>.Instance.UseButton.gameObject.SetActive(true);
         }
+
         foreach (var playerControl in PlayerControl.AllPlayerControls.WrapToSystem())
-        {
             PlayerNameColor.Set(playerControl);
-        };
+        ;
     }
 
-    public static List<PlayerControl> GetMembers(this CustomRole customRole) =>
-        CustomRoleManager.GetRoleMembers(customRole);
+    public static List<PlayerControl> GetMembers(this CustomRole customRole)
+    {
+        return CustomRoleManager.GetRoleMembers(customRole);
+    }
 }

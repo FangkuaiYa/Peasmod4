@@ -2,15 +2,15 @@
 
 public class Enums
 {
-    public enum Team : int
+    public enum Team
     {
         Crewmate = 0,
         Impostor = 1,
         Role = 2,
         Alone = 3
     }
-    
-    public enum Visibility : int
+
+    public enum Visibility
     {
         Everyone = 0,
         Impostor = 1,

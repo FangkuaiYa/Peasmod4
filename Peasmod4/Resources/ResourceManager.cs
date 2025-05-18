@@ -14,7 +14,7 @@ public class ResourceManager
     public static Sprite DropBodyButton;
 
     public static Sprite PeasmodLogo;
-    
+
     public static void LoadAssets()
     {
         PlaceholderButton = Utility.CreateSprite("Peasmod4.Resources.Buttons.Placeholder.png");
@@ -25,7 +25,7 @@ public class ResourceManager
         RevivePlayerButton = Utility.CreateSprite("Peasmod4.Resources.Buttons.Revive.png", 550f);
         DragBodyButton = Utility.CreateSprite("Peasmod4.Resources.Buttons.DragBody.png", 550f);
         DropBodyButton = Utility.CreateSprite("Peasmod4.Resources.Buttons.DropBody.png", 550f);
-        
+
         PeasmodLogo = Utility.CreateSprite("Peasmod4.Resources.Other.Peasmod.png", 100f);
     }
 }

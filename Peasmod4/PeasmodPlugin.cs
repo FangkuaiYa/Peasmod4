@@ -28,14 +28,10 @@ namespace Peasmod4;
 public partial class PeasmodPlugin : BasePlugin
 {
     public const string ModId = "xyz.peasplayer.peasmod4";
-    
-    public static ManualLogSource Logger { get; private set; }
-
-    public static ConfigFile ConfigFile { get; private set; }
 
     public static CustomToggleOption ShowRolesToDead;
-    
-    public Harmony Harmony { get; } = new(Id);
+
+    public static bool DestroyIntro = true;
 
     public PeasmodPlugin()
     {
@@ -49,57 +45,57 @@ public partial class PeasmodPlugin : BasePlugin
         RegisterEventListenerAttribute.Load();
     }
 
-    public static bool DestroyIntro = true;
-    
+    public static ManualLogSource Logger { get; private set; }
+
+    public static ConfigFile ConfigFile { get; private set; }
+
+    public Harmony Harmony { get; } = new(Id);
+
     [HarmonyPatch(typeof(KeyboardJoystick), nameof(KeyboardJoystick.Update))]
     [HarmonyPostfix]
     private static void SwitchSettingsPagesPatch(KeyboardJoystick __instance)
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            
         }
     }
-    
+
     [RegisterEventListener(EventType.GameStart)]
     public static void TestListener(object sender, EventArgs test)
     {
-        PeasmodPlugin.Logger.LogInfo("HALLO WELLLLLT");
+        Logger.LogInfo("HALLO WELLLLLT");
     }
-    
+
     public static void LoadModMainOptions()
     {
         new CustomHeaderOption(MultiMenu.Main, "Gameplay Settings");
-        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "Show roles to dead", true);
+        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "Show roles to dead");
     }
 
     public override void Load()
     {
-        #if !API
+#if !API
         ReactorVersionShower.TextUpdated += text =>
         {
             var versionText = "Not again\nPeasmod V4";
-            #if DEV
+#if DEV
             versionText += $"\n{Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
-            #endif
-            
+#endif
+
             text.text = versionText;
         };
-        #endif
-        
+#endif
+
         SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>)((scene, _) =>
         {
-            if (scene.name == "MainMenu")
-            {
-                CustomRegionManager.AddCustomRegions();
-            }
+            if (scene.name == "MainMenu") CustomRegionManager.AddCustomRegions();
         }));
-        
+
         CustomRegionManager.AddRegion("Peaspowered", "https://auhk.fangkuai.fun", 443);
-        
+
         Harmony.PatchAll();
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     public static void Test(MainMenuManager __instance)
@@ -122,11 +118,11 @@ public partial class PeasmodPlugin : BasePlugin
         var cacheButton = GameObject.Find("PlayButton");
         cachePos = cacheButton.transform.position;
         cacheButton.transform.position = new Vector3(cachePos.x, cachePos.y + 0.6409f, -0.2789f);
-        
+
         cacheButton = GameObject.Find("ShopButton");
         cachePos = cacheButton.transform.position;
         cacheButton.transform.position = new Vector3(cachePos.x, cachePos.y + 0.6409f, -0.2789f);
-        
+
         cacheButton = GameObject.Find("Inventory Button");
         cachePos = cacheButton.transform.position;
         cacheButton.transform.position = new Vector3(cachePos.x, cachePos.y + 0.6409f, -0.2789f);
@@ -134,35 +130,40 @@ public partial class PeasmodPlugin : BasePlugin
         var newButton = GameObject.Instantiate(cacheButton, mainButtons.transform);
         newButton.name = "Peasmod Button";
         newButton.transform.position = new Vector3(cachePos.x, cachePos.y - 0.6409f, -0.2789f);
-        
+
         var text = newButton.transform.FindChild("FontPlacer").FindChild("Text_TMP").gameObject;
-        PeasmodPlugin.Logger.LogInfo(text == null);
+        Logger.LogInfo(text == null);
         text.GetComponent<TextTranslatorTMP>().Destroy();
         text.GetComponent<TextMeshPro>().text = "Peasmod";
-        
+
         var buttonComp = newButton.GetComponent<PassiveButton>();
         buttonComp.OnClick = new Button.ButtonClickedEvent();
         buttonComp.AddOnClickListeners(new Action(() =>
         {
-            var creditsController = GameObject.Find("MainMenuManager/MainUI/AspectScaler/RightPanel/CreditsSizer/CreditsScreen").GetComponent<CreditsScreenPopUp>().CreditsController;
+            var creditsController = GameObject
+                .Find("MainMenuManager/MainUI/AspectScaler/RightPanel/CreditsSizer/CreditsScreen")
+                .GetComponent<CreditsScreenPopUp>().CreditsController;
             creditsController.ClearCredits();
-            CsvReader csvReader = new CsvReader(new StringReader(DestroyableSingleton<ReferenceDataManager>.Instance.Refdata.credits.ToString()));
+            var csvReader =
+                new CsvReader(new StringReader(DestroyableSingleton<ReferenceDataManager>.Instance.Refdata.credits
+                    .ToString()));
             creditsController.ClearCredits();
             while (csvReader.Read())
             {
-                CreditsController.CreditStruct creditStruct = new CreditsController.CreditStruct();//default(CreditsController.CreditStruct);
-                string field = csvReader.GetField<string>("Format");
+                var creditStruct = new CreditsController.CreditStruct(); //default(CreditsController.CreditStruct);
+                var field = csvReader.GetField<string>("Format");
                 Logger.LogInfo("1: " + field);
                 creditStruct.format = field;
                 creditStruct.columns = new string[creditsController.NumberOfContentColumns];
                 Logger.LogInfo("2: " + creditStruct.columns);
-                for (int i = 1; i <= creditsController.NumberOfContentColumns; i++)
+                for (var i = 1; i <= creditsController.NumberOfContentColumns; i++)
                 {
-                    string field2 = csvReader.GetField<string>("Column" + i.ToString());
-                    
+                    var field2 = csvReader.GetField<string>("Column" + i);
+
                     Logger.LogInfo("3: " + field2);
                     creditStruct.columns[i - 1] = field2;
                 }
+
                 creditsController.AddCredit(creditStruct);
                 creditsController.AddFormat(field);
             }
@@ -170,16 +171,16 @@ public partial class PeasmodPlugin : BasePlugin
         }));
     }
 
-    #if !API
+#if !API
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
     public static void PingPatch(PingTracker __instance)
     {
         var pingText = "\nPeasmod is (maybe) back!";
-        #if DEV
+#if DEV
         pingText += $"\n{Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
-        #endif
+#endif
         __instance.text.text += pingText;
     }
-    #endif
+#endif
 }

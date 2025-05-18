@@ -2,7 +2,8 @@ namespace Peasmod4.API.UI.Options;
 
 public class CustomToggleOption : CustomOption
 {
-    protected internal CustomToggleOption(MultiMenu menu, string optionName, string name, bool value = true) : base(num++, menu, optionName, name, CustomOptionType.Toggle, value)
+    protected internal CustomToggleOption(MultiMenu menu, string optionName, string name, bool value = true) : base(
+        num++, menu, optionName, name, CustomOptionType.Toggle, value)
     {
         Format = val => (bool)val ? "On" : "Off";
     }

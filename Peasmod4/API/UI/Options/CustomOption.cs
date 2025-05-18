@@ -11,20 +11,24 @@ namespace Peasmod4.API.UI.Options;
 public class CustomOption
 {
     public static List<CustomOption> AllOptions = new();
+
+    public static int num = 1;
     public readonly int ID;
     public readonly MultiMenu Menu;
 
+    public CustomRole CustomRole;
+    public CustomRoleOptionType CustomRoleOptionType;
+
     public Func<object, string> Format;
     public string Name;
+    public string OptionName;
 
     public StringNames StringName;
 
-    public CustomRole CustomRole;
-    public CustomRoleOptionType CustomRoleOptionType;
-    public string OptionName;
-
-    protected internal CustomOption(int id, MultiMenu menu, string optionName, string name, CustomOptionType type, object defaultValue,
-        Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None, CustomRole customRole = null)
+    protected internal CustomOption(int id, MultiMenu menu, string optionName, string name, CustomOptionType type,
+        object defaultValue,
+        Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None,
+        CustomRole customRole = null)
     {
         ID = id;
         Menu = menu;
@@ -47,8 +51,8 @@ public class CustomOption
     protected internal OptionBehaviour Setting { get; set; }
     protected internal CustomOptionType Type { get; set; }
     public object DefaultValue { get; set; }
-    
-    public static int num = 1;
+    internal static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
+    internal static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
 
     public override string ToString()
     {
@@ -62,7 +66,8 @@ public class CustomOption
 
     public static string ColorString(Color c, string s)
     {
-        return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b), ToByte(c.a), s);
+        return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b),
+            ToByte(c.a), s);
     }
 
     private static byte ToByte(float f)
@@ -70,8 +75,6 @@ public class CustomOption
         f = Mathf.Clamp01(f);
         return (byte)(f * 255);
     }
-    internal static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
-    internal static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
 
     protected internal void Set(object value, bool SendRpc = true, bool Notify = false)
     {
