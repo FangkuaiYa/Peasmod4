@@ -151,12 +151,12 @@ public static class Patches
             settingsButton.transform.localPosition += new Vector3(0f, 2f, 0f);
             settingsButton.transform.localScale *= 0.9f;
 
-            CreateSettings(__instance, 3, "ModSettings", "Mod Settings", settingsButton, MultiMenu.Main);
-            CreateSettings(__instance, 4, "CrewSettings", "Crewmate Settings", settingsButton,
+            CreateSettings(__instance, 3, "ModSettings", "option.ModSettings.text", settingsButton, MultiMenu.Main);
+            CreateSettings(__instance, 4, "CrewSettings", "option.CrewSettings.text", settingsButton,
                 MultiMenu.Crewmate);
-            CreateSettings(__instance, 5, "NeutralSettings", "Neutral Settings", settingsButton,
+            CreateSettings(__instance, 5, "NeutralSettings", "option.NeutralSettings.text", settingsButton,
                 MultiMenu.Neutral);
-            CreateSettings(__instance, 6, "ImpSettings", "Impostor Settings", settingsButton,
+            CreateSettings(__instance, 6, "ImpSettings", "option.ImpSettings.text", settingsButton,
                 MultiMenu.Impostor);
         }
 
@@ -226,7 +226,7 @@ public static class Patches
                     new Action<float>(p =>
                     {
                         button.transform.FindChild("FontPlacer").GetComponentInChildren<TextMeshPro>().text =
-                            text;
+                            text.Translate();
                     })));
                 var passiveButton = button.GetComponent<PassiveButton>();
                 passiveButton.OnClick.RemoveAllListeners();
@@ -477,13 +477,13 @@ public static class Patches
 
             GameObject.Find("RolesTabs")?.Destroy();
             var overview = GameObject.Find("OverviewTab");
-            overview.transform.localScale += new Vector3(-0.45f, 0f, 0f);
+            overview.transform.localScale += new Vector3(-0.35f, 0f, 0f);
             overview.transform.localPosition += new Vector3(-1f, 0f, 0f);
 
-            CreateButton(__instance, 1, "ModTab", "Mod Settings", MultiMenu.Main, overview);
-            CreateButton(__instance, 2, "CrewmateTab", "Crewmate Settings", MultiMenu.Crewmate, overview);
-            CreateButton(__instance, 3, "NeutralTab", "Neutral Settings", MultiMenu.Neutral, overview);
-            CreateButton(__instance, 4, "ImpostorTab", "Impostor Settings", MultiMenu.Impostor, overview);
+            CreateButton(__instance, 1, "ModTab", "option.ModSettings.text", MultiMenu.Main, overview);
+            CreateButton(__instance, 2, "CrewmateTab", "option.CrewSettings.text", MultiMenu.Crewmate, overview);
+            CreateButton(__instance, 3, "NeutralTab", "option.NeutralSettings.text", MultiMenu.Neutral, overview);
+            CreateButton(__instance, 4, "ImpostorTab", "option.ImpSettings.text", MultiMenu.Impostor, overview);
         }
 
         public static void CreateButton(LobbyViewSettingsPane __instance, int target, string name, string text,
@@ -493,13 +493,13 @@ public static class Patches
             if (tab == null)
             {
                 tab = GameObject.Instantiate(overview, overview.transform.parent);
-                tab.transform.localPosition += new Vector3(2f, 0f, 0f) * target;
+                tab.transform.localPosition += new Vector3(2.5f, 0f, 0f) * target;
                 tab.name = name;
                 __instance.StartCoroutine(Effects.Lerp(1f,
                     new Action<float>(p =>
                     {
                         tab.transform.FindChild("FontPlacer").GetComponentInChildren<TextMeshPro>().text =
-                            text;
+                            text.Translate();
                     })));
                 var pTab = tab.GetComponent<PassiveButton>();
                 pTab.OnClick.RemoveAllListeners();

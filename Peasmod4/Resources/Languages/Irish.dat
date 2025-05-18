@@ -1,0 +1,13 @@
+"option.GameplaySettings.header": "Gameplay Settings"
+"option.main.ShowRolesToDead": "Show roles to dead"
+
+"roleOption.chanceOption.text": "Spawn Chance"
+"roleOption.countOption.text": "Spawn Count"
+
+"option.optionOn.text": "On"
+"option.optionOff.text": "Off"
+
+"option.ModSettings.text": "Mod Settings"
+"option.CrewSettings.text": "Crewmate Settings"
+"option.NeutralSettings.text": "Neutral Settings"
+"option.ImpSettings.text": "Impostor Settings"

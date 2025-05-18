@@ -45,7 +45,7 @@ public class CustomOption
         Set(ValueObject);
 
         StringName = CustomStringName.CreateAndRegister((customRoleOptionType == CustomRoleOptionType.Chance || customRoleOptionType == CustomRoleOptionType.Count) ?
-            ColorString(customRole.Color, customRole.Name) + $" {name}" : name);
+            Utility.ColorString(customRole.Color, customRole.Name) + $" {name.Translate()}" : name.Translate());
     }
 
     protected internal object ValueObject { get; set; }
@@ -63,18 +63,6 @@ public class CustomOption
     public virtual void OptionCreated()
     {
         Setting.name = Setting.gameObject.name = Name;
-    }
-
-    public static string ColorString(Color c, string s)
-    {
-        return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b),
-            ToByte(c.a), s);
-    }
-
-    private static byte ToByte(float f)
-    {
-        f = Mathf.Clamp01(f);
-        return (byte)(f * 255);
     }
 
     protected internal void Set(object value, bool SendRpc = true, bool Notify = false)

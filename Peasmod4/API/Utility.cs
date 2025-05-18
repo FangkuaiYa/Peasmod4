@@ -26,6 +26,18 @@ public class Utility
         return sprite;
     }
 
+    public static string ColorString(Color c, string s)
+    {
+        return string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>{4}</color>", ToByte(c.r), ToByte(c.g), ToByte(c.b),
+            ToByte(c.a), s);
+    }
+
+    private static byte ToByte(float f)
+    {
+        f = Mathf.Clamp01(f);
+        return (byte)(f * 255);
+    }
+
     public static void DoAfterTimeout(Action action, float timeout)
     {
         Coroutines.Start(_CoDoAfterTimeout(action, timeout));

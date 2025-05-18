@@ -14,6 +14,7 @@ public class ResourceManager
     public static Sprite DropBodyButton;
 
     public static Sprite PeasmodLogo;
+    public static Sprite IntroColorBG;
 
     public static void LoadAssets()
     {
@@ -27,5 +28,6 @@ public class ResourceManager
         DropBodyButton = Utility.CreateSprite("Peasmod4.Resources.Buttons.DropBody.png", 550f);
 
         PeasmodLogo = Utility.CreateSprite("Peasmod4.Resources.Other.Peasmod.png", 100f);
+        IntroColorBG = Utility.CreateSprite("Peasmod4.Resources.Other.White.png", 100f);
     }
 }

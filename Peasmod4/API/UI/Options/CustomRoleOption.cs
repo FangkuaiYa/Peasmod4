@@ -10,13 +10,13 @@ public class CustomRoleOption : CustomOption
 
     protected internal CustomRoleOption(CustomRole customRole, MultiMenu menu = MultiMenu.NULL) : base(num++,
         menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu, "roleOption",
-        ColorString(customRole.Color, customRole.Name), CustomOptionType.Header, 0)
+        Utility.ColorString(customRole.Color, customRole.Name), CustomOptionType.Header, 0)
     {
         chanceOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu,
-            $"{customRole.Name}ChanceOption", "Spawn Chance", 0, 10, new FloatRange(0, 100), PercentFormat,
+            $"{customRole.Name}ChanceOption", "roleOption.chanceOption.text", 0, 10, new FloatRange(0, 100), PercentFormat,
             CustomRoleOptionType.Chance, customRole);
         countOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu,
-            $"{customRole.Name}CountOption", "Spawn Count", 1, 1, new FloatRange(1, 15), null,
+            $"{customRole.Name}CountOption", "roleOption.countOption.text", 1, 1, new FloatRange(1, 15), null,
             CustomRoleOptionType.Count, customRole);
     }
 

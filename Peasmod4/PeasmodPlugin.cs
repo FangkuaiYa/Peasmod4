@@ -37,6 +37,7 @@ public partial class PeasmodPlugin : BasePlugin
     {
         Logger = Log;
         ConfigFile = Config;
+        Language.Load();
 
         LoadModMainOptions();
 
@@ -68,8 +69,8 @@ public partial class PeasmodPlugin : BasePlugin
 
     public static void LoadModMainOptions()
     {
-        new CustomHeaderOption(MultiMenu.Main, "Gameplay Settings");
-        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "Show roles to dead");
+        new CustomHeaderOption(MultiMenu.Main, "option.GameplaySettings.header");
+        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "option.main.ShowRolesToDead");
     }
 
     public override void Load()
@@ -77,12 +78,14 @@ public partial class PeasmodPlugin : BasePlugin
 #if !API
         ReactorVersionShower.TextUpdated += text =>
         {
-            var versionText = "Not again\nPeasmod V4";
+#if !DEV
+            var versionText = $"\n{Utility.StringColor.Red}Peasmod{Utility.StringColor.Reset} v{Version}";
+#endif
 #if DEV
-            versionText += $"\n{Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
+            var versionText = $"\n{Utility.StringColor.Red}Peasmod{Utility.StringColor.Reset} {Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
 #endif
 
-            text.text = versionText;
+            text.text += versionText;
         };
 #endif
 
@@ -96,6 +99,7 @@ public partial class PeasmodPlugin : BasePlugin
         Harmony.PatchAll();
     }
 
+#if !API
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     public static void Test(MainMenuManager __instance)
@@ -170,6 +174,7 @@ public partial class PeasmodPlugin : BasePlugin
             //PeasmodPlugin.Logger.LogInfo("Button pressed: " + tmp3);
         }));
     }
+#endif
 
 #if !API
     [HarmonyPostfix]
@@ -189,10 +194,12 @@ public partial class PeasmodPlugin : BasePlugin
             __instance.text.alignment = TextAlignmentOptions.TopLeft;
             position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
         }
+#if !DEV
 
-        var pingText = "\nPeasmod is (maybe) back!";
+        var pingText = $"\n{Utility.StringColor.Red}Peasmod{Utility.StringColor.Reset} v{Version}";
+#endif
 #if DEV
-        pingText += $"\n{Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
+        var pingText = $"\n{Utility.StringColor.Red}Peasmod{Utility.StringColor.Reset} {Utility.StringColor.Red}Unstable Version!{Utility.StringColor.Reset}";
 #endif
         __instance.text.text += pingText;
     }

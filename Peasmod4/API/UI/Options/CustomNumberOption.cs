@@ -10,7 +10,7 @@ public class CustomNumberOption : CustomOption
         float increment, FloatRange floatRange,
         Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None,
         CustomRole customRole = null)
-        : base(num++, multiMenu, optionName, name, CustomOptionType.Number, value, format, customRoleOptionType,
+        : base(num++, multiMenu, optionName, name.Translate(), CustomOptionType.Number, value, format, customRoleOptionType,
             customRole)
     {
         Min = floatRange.min;

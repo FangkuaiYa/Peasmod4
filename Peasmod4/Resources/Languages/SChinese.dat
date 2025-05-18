@@ -1,0 +1,13 @@
+"option.GameplaySettings.header": "基础游戏设置"
+"option.main.ShowRolesToDead": "显示死亡玩家职业"
+
+"roleOption.chanceOption.text": "职业概率"
+"roleOption.countOption.text": "职业数量"
+
+"option.optionOn.text": "开启"
+"option.optionOff.text": "关闭"
+
+"option.ModSettings.text": "模组设置"
+"option.CrewSettings.text": "船员设置"
+"option.NeutralSettings.text": "中立设置"
+"option.ImpSettings.text": "内鬼设置"
