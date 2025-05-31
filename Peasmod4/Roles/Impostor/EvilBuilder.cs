@@ -27,15 +27,16 @@ public class EvilBuilder : CustomRole
     public EvilBuilder(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        VentBuildAmount = new CustomNumberOption(MultiMenu.Impostor, "EvilBuilder.VentBuildAmount", "Amount of vents",
-            0, 1f, new FloatRange(0f, 100f));
+        VentBuildAmount = new CustomNumberOption(MultiMenu.Impostor, "EvilBuilder.VentBuildAmount", 0, 1f,
+            new FloatRange(0f, 100f));
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }
 
-    public override string Name => "Evil Builder";
-    public override string Description => "You can make vents";
-    public override string LongDescription => "Make vents on the ship";
+    public override string Name => "role.EvilBuilder.name".Translate();
+    public override string Description => "role.EvilBuilder.Description".Translate();
+    public override string LongDescription => "role.EvilBuilder.LongDescription".Translate();
+    public override string TaskHint => "role.EvilBuilder.TaskHint".Translate();
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
@@ -49,7 +50,7 @@ public class EvilBuilder : CustomRole
                 LeftUses--;
                 var pos = PlayerControl.LocalPlayer.transform.position;
                 BuildVent.RpcCreateVent(PlayerControl.LocalPlayer, pos.x, pos.y, pos.z);
-            }, "Build", ResourceManager.BuildVentButton, player => player.IsCustomRole(this) && !player.Data.IsDead,
+            }, "role.EvilBuilder.buttonText", ResourceManager.BuildVentButton, player => player.IsCustomRole(this) && !player.Data.IsDead,
             player =>
             {
                 if (LeftUses == 0)

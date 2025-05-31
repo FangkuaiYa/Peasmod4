@@ -6,11 +6,11 @@ namespace Peasmod4.API.UI.Options;
 
 public class CustomNumberOption : CustomOption
 {
-    protected internal CustomNumberOption(MultiMenu multiMenu, string optionName, string name, float value,
+    protected internal CustomNumberOption(MultiMenu multiMenu, string optionName, float value,
         float increment, FloatRange floatRange,
         Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None,
         CustomRole customRole = null)
-        : base(num++, multiMenu, optionName, name.Translate(), CustomOptionType.Number, value, format, customRoleOptionType,
+        : base(num++, multiMenu, optionName, CustomOptionType.Number, value, format, customRoleOptionType,
             customRole)
     {
         Min = floatRange.min;

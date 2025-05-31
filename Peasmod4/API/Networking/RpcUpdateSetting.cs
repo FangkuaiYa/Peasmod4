@@ -119,7 +119,7 @@ public class RpcUpdateSetting
             {
                 var panels = GameObject.FindObjectsOfType<ViewSettingsInfoPanel>();
                 foreach (var panel in panels)
-                    if (panel.titleText.text == customOption.Name && customOption.Type != CustomOptionType.Header)
+                    if (panel.titleText.text == customOption.GetName() && customOption.Type != CustomOptionType.Header)
                         panel.settingText.text = customOption.ToString();
             }
         }

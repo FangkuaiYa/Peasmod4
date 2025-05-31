@@ -26,7 +26,7 @@ public class CustomButton
         PeasmodPlugin.Logger.LogInfo("CustomButton#Constructor");
         ObjectName = objectName;
         OnClick = onClick;
-        Text = text;
+        Text = Language.GetString(text);
         Image = image;
         CouldUse = couldUse;
         CanUse = canUse;

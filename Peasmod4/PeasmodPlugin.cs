@@ -70,7 +70,7 @@ public partial class PeasmodPlugin : BasePlugin
     public static void LoadModMainOptions()
     {
         new CustomHeaderOption(MultiMenu.Main, "option.GameplaySettings.header");
-        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "ShowRolesToDead", "option.main.ShowRolesToDead");
+        ShowRolesToDead = new CustomToggleOption(MultiMenu.Main, "option.main.ShowRolesToDead");
     }
 
     public override void Load()

@@ -11,3 +11,158 @@
 "option.CrewSettings.text": "Crewmate Settings"
 "option.NeutralSettings.text": "Neutral Settings"
 "option.ImpSettings.text": "Impostor Settings"
+
+"role.Captain.name": "Captain"
+"role.Captain.Description": "Keep your crew safe"
+"role.Captain.LongDescription": ""
+"role.Captain.TaskHint": "Keep your crew safe"
+"role.Captain.buttonText": "Call"
+
+"Captain.CallCooldownOption": "Calling cooldown"
+
+
+"role.Cloak.name": "Cloak"
+"role.Cloak.Description": "You can go invisible"
+"role.Cloak.LongDescription": ""
+"role.Cloak.TaskHint": "Go invisible and try to catch the impostor"
+"role.Cloak.buttonText": "Hide"
+
+"Cloak.CloakHideCooldown": "Hide cooldown"
+"Cloak.CloakHideDuration": "Hide duration"
+
+
+"role.Doctor.name": "Doctor"
+"role.Doctor.Description": "Heal the crew"
+"role.Doctor.LongDescription": ""
+"role.Doctor.TaskHint": ""
+"role.Doctor.buttonText": "Revive"
+
+"Doctor.ReviveCooldown": "Revive cooldown"
+
+
+"role.Inspector.name": "Inspector"
+"role.Inspector.Description": "Follow the bad guys"
+"role.Inspector.LongDescription": ""
+"role.Inspector.TaskHint": ""
+"role.Inspector.buttonText": ""
+
+"Inspector.FootstepVisibleTime": "Time footsteps stay visible"
+"Inspector.TimeBetween": "Time between each footstep"
+
+
+"role.Mayor.name": "Mayor"
+"role.Mayor.Description": "Your vote counts twice"
+"role.Mayor.LongDescription": ""
+"role.Mayor.TaskHint": "Your vote counts twice. Use it wisely!"
+"role.Mayor.buttonText": ""
+
+"Mayor.DoubleVoteAmount": "Double-votes amount"
+
+
+"role.Sheriff.name": "Sheriff"
+"role.Sheriff.Description": "Execute the bad guys"
+"role.Sheriff.LongDescription": ""
+"role.Sheriff.TaskHint": ""
+"role.Sheriff.buttonText": ""
+
+"Sheriff.CanKillNeutrals": "Can kill neutrals"
+"Sheriff.InnocentVictimDiesAsWell": "Innocent victim dies as well"
+
+
+"role.EvilBuilder.name": "Evil Builder"
+"role.EvilBuilder.Description": "You can make vents"
+"role.EvilBuilder.LongDescription": "Make vents on the ship"
+"role.EvilBuilder.TaskHint": ""
+"role.EvilBuilder.buttonText": "Build"
+
+"EvilBuilder.VentBuildAmount": "Amount of vents"
+
+
+"role.Glaciator.name": "Glaciator"
+"role.Glaciator.Description": "Freeze everyone"
+"role.Glaciator.LongDescription": ""
+"role.Glaciator.TaskHint": ""
+"role.Glaciator.buttonText": "Freeze"
+
+"Glaciator.FreezeCooldown": "Freeze cooldown"
+"Glaciator.FreezeDuration": "Freeze duration"
+
+
+"role.Janitor.name": "Janitor"
+"role.Janitor.Description": "Clean dead bodies of the other Impostors"
+"role.Janitor.LongDescription": ""
+"role.Janitor.TaskHint": ""
+"role.Janitor.buttonText": "Clean"
+
+"Janitor.CanKill": "Can kill"
+
+
+"role.Ninja.name": "Ninja"
+"role.Ninja.Description": "You can go invisible"
+"role.Ninja.LongDescription": ""
+"role.Ninja.TaskHint": "Go invisible and kill the crewmates secretly"
+"role.Ninja.buttonText": "Hide"
+
+"Ninja.HideCooldown": "Hide cooldown"
+"Ninja.HideDuration": "Hide duration"
+
+
+"role.Undertaker.name": "Undertaker"
+"role.Undertaker.Description": "Drag the bodies away"
+"role.Undertaker.LongDescription": ""
+"role.Undertaker.TaskHint": ""
+"role.Undertaker.buttonTextDrag": "Drag"
+"role.Undertaker.buttonTextDrop": "Drop"
+
+
+"role.Jester.name": "Jester"
+"role.Jester.Description": "Trick the crew"
+"role.Jester.LongDescription": ""
+"role.Jester.TaskHint": "Trick the crew into voting you out"
+"role.Jester.buttonText": ""
+"role.Jester.winText": "Jester won"
+
+"Jester.CanVent": "Can vent"
+
+
+"role.Jinx.name": "Jinx"
+"role.Jinx.Description": "Survive the longest"
+"role.Jinx.LongDescription": ""
+"role.Jinx.TaskHint": "Be one of the last three survivors"
+"role.Jinx.buttonText": ""
+"role.Jinx.winText": "Jinx won"
+
+
+"role.Traitor.name": "Traitor"
+"role.Traitor.Description": "Betray the crewmates"
+"role.Traitor.LongDescription": ""
+"role.Traitor.TaskHint": "Betray the crewmates after you completed your tasks"
+"role.Traitor.buttonText": ""
+"role.Traitor.winText": ""
+
+
+"role.Troll.name": "Troll"
+"role.Troll.Description": "Get killed"
+"role.Troll.LongDescription": ""
+"role.Troll.TaskHint": "Get killed"
+"role.Troll.buttonText": "Infect"
+"role.Troll.winText": "Troll won"
+
+
+"role.Zombie.name": "Zombie"
+"role.Zombie.Description": "Infect every crewmate"
+"role.Zombie.LongDescription": "Spread the zombie disease to every other crewmate and turn them into zombies too but watch out!
+You can't infect impostors because they already have a different disease"
+"role.Zombie.TaskHint": "Infect every crewmate"
+"role.Zombie.buttonText": ""
+"role.Zombie.winText": "Zombies infected the crew"
+
+"Zombie.Reach": "Reach"
+"Zombie.Reach.Small": "Small"
+"Zombie.Reach.Medium": "Medium"
+"Zombie.Reach.Long": "Long"
+
+"Zombie.InfectCooldown": "Infect cooldown"
+"Zombie.SpeedMod": "Speed modification"
+"Zombie.LightMod": "Vision modification"
+"Zombie.VisibleToEveryone": "Visible to everyone"

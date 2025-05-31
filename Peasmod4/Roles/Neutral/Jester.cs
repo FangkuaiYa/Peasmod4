@@ -28,13 +28,13 @@ public class Jester : CustomRole
         PlayerEventManager.PlayerExiledEventHandler += OnPlayerExiled;
 
         RoleOption = new CustomRoleOption(this);
-        CanVentOption = new CustomToggleOption(MultiMenu.Neutral, "JesterCanVent", "Can vent", false);
+        CanVentOption = new CustomToggleOption(MultiMenu.Neutral, "Jester.CanVent", false);
     }
 
-    public override string Name => "Jester";
-    public override string Description => "Trick the crew";
-    public override string LongDescription => "";
-    public override string TaskHint => "Trick the crew into voting you out";
+    public override string Name => "role.Jester.name".Translate();
+    public override string Description => "role.Jester.Description".Translate();
+    public override string LongDescription => "role.Jester.LongDescription".Translate();
+    public override string TaskHint => "role.Jester.TaskHint".Translate();
     public override Color Color => new(136f / 255f, 31f / 255f, 136f / 255f);
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Alone;
@@ -59,7 +59,7 @@ public class Jester : CustomRole
             {
                 PeasmodPlugin.Logger.LogInfo("Registered Reason: " + player.name);
                 EndReasons.Add(player.PlayerId,
-                    CustomEndGameManager.RegisterCustomEndReason("Jester won", Color, false, false));
+                    CustomEndGameManager.RegisterCustomEndReason("role.Jester.winText", Color, false, false));
             }
     }
 

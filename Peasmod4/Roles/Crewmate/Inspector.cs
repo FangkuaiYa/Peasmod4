@@ -22,17 +22,19 @@ public class Inspector : CustomRole
     public Inspector(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        FootstepVisibleTimeOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.FootstepVisibleTime",
-            "Time footsteps stay visible", 5f, 1f, new FloatRange(1f, 30f), CustomOption.CooldownFormat);
-        TimeBetweenOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.TimeBetween",
-            "Time between each footstep", 1f, 0.1f, new FloatRange(0.2f, 2f), CustomOption.CooldownFormat);
+        FootstepVisibleTimeOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.FootstepVisibleTime", 5f, 1f,
+            new FloatRange(1f, 30f), CustomOption.CooldownFormat);
+        TimeBetweenOption = new CustomNumberOption(MultiMenu.Crewmate, "Inspector.TimeBetween", 1f, 0.1f,
+            new FloatRange(0.2f, 2f), CustomOption.CooldownFormat);
 
         HudEventManager.HudUpdateEventHandler += OnUpdate;
     }
 
-    public override string Name => "Inspector";
-    public override string Description => "Follow the bad guys";
-    public override string LongDescription => "";
+    public override string Name => "role.Inspector.name".Translate();
+    public override string Description => "role.Inspector.Description".Translate();
+    public override string LongDescription => "role.Inspector.LongDescription".Translate();
+    public override string TaskHint => "role.Inspector.TaskHint".Translate();
+
     public override Color Color => new(58f / 255f, 255f / 255f, 127f / 255f);
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Crewmate;

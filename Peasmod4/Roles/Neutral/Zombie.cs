@@ -33,29 +33,28 @@ public class Zombie : CustomRole
     public Zombie(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        Reach = new CustomStringOption(MultiMenu.Neutral, "ZombieReach", "Reach", new[] { "Small", "Medium", "Long" });
-        InfectCooldown = new CustomNumberOption(MultiMenu.Neutral, "ZombieInfectCooldown", "Infect cooldown", 20f, 2.5f,
+        Reach = new CustomStringOption(MultiMenu.Neutral, "Zombie.Reach", new[] { "Zombie.Reach.Small", "Zombie.Reach.Medium", "Zombie.Reach.Long" });
+        InfectCooldown = new CustomNumberOption(MultiMenu.Neutral, "Zombie.InfectCooldown", 20f, 2.5f,
             new FloatRange(10f, 100f), CustomOption.CooldownFormat);
-        SpeedMod = new CustomNumberOption(MultiMenu.Neutral, "ZombieSpeedMod", "Speed modification", 1f, 0.25f,
+        SpeedMod = new CustomNumberOption(MultiMenu.Neutral, "Zombie.SpeedMod", 1f, 0.25f,
             new FloatRange(0.25f, 1.5f), CustomOption.MultiplierFormat);
-        LightMod = new CustomNumberOption(MultiMenu.Neutral, "ZombieLightMod", "Vision modification", 1f, 0.25f,
+        LightMod = new CustomNumberOption(MultiMenu.Neutral, "Zombie.LightMod", 1f, 0.25f,
             new FloatRange(0.25f, 1.5f), CustomOption.MultiplierFormat);
         VisibleToEveryone =
-            new CustomToggleOption(MultiMenu.Neutral, "ZombieVisibleToEveryone", "Visible to everyone", false);
+            new CustomToggleOption(MultiMenu.Neutral, "Zombie.VisibleToEveryone", false);
 
         GameEventManager.GameStartEventHandler += (_, _) =>
-            EndReason = CustomEndGameManager.RegisterCustomEndReason("Zombies infected the crew", ZombieColor, false,
+            EndReason = CustomEndGameManager.RegisterCustomEndReason("role.Zombie.winText", ZombieColor, false,
                 false);
         HudEventManager.HudUpdateEventHandler += OnUpdate;
     }
 
-    public override string Name => "Zombie";
-    public override string Description => "Infect every crewmate";
+    public override string Name => "role.Zombie.name".Translate();
+    public override string Description => "role.Zombie.Description".Translate();
 
-    public override string LongDescription =>
-        "Spread the zombie disease to every other crewmate and turn them into zombies too but watch out! You can't infect impostors because they already have a different disease";
+    public override string LongDescription => "role.Zombie.LongDescription".Translate();
 
-    public override string TaskHint => "Infect every crewmate";
+    public override string TaskHint => "role.Zombie.TaskHint".Translate();
     public override Color Color => ZombieColor;
 
     public override Enums.Visibility Visibility =>
@@ -83,7 +82,7 @@ public class Zombie : CustomRole
                     EndReason.Trigger();
                     MadeWinCall = true;
                 }
-            }, "Infect",
+            }, "role.Troll.buttonText",
             ResourceManager.PlaceholderButton, player => player.IsCustomRole(this),
             player => player.IsCustomRole(this), new CustomButton.CustomButtonOptions(InfectCooldown.Value,
                 targetType: CustomButton.CustomButtonOptions.TargetType.Player,

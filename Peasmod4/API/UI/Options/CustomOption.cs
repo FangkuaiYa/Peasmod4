@@ -21,18 +21,20 @@ public class CustomOption
 
     public Func<object, string> Format;
     public string Name;
-    public string OptionName;
+    public string GetName()
+    {
+        return Language.GetString(Name);
+    }
 
     public StringNames StringName;
 
-    protected internal CustomOption(int id, MultiMenu menu, string optionName, string name, CustomOptionType type,
+    protected internal CustomOption(int id, MultiMenu menu, string name, CustomOptionType type,
         object defaultValue,
         Func<object, string> format = null, CustomRoleOptionType customRoleOptionType = CustomRoleOptionType.None,
         CustomRole customRole = null)
     {
         ID = id;
         Menu = menu;
-        OptionName = optionName;
         Name = name;
         Type = type;
         DefaultValue = ValueObject = defaultValue;
@@ -45,7 +47,7 @@ public class CustomOption
         Set(ValueObject);
 
         StringName = CustomStringName.CreateAndRegister((customRoleOptionType == CustomRoleOptionType.Chance || customRoleOptionType == CustomRoleOptionType.Count) ?
-            Utility.ColorString(customRole.Color, customRole.Name) + $" {name.Translate()}" : name.Translate());
+            Utility.ColorString(customRole.Color, customRole.Name) + $" {GetName()}" : GetName());
     }
 
     protected internal object ValueObject { get; set; }
@@ -62,7 +64,7 @@ public class CustomOption
 
     public virtual void OptionCreated()
     {
-        Setting.name = Setting.gameObject.name = Name;
+        Setting.name = Setting.gameObject.name = GetName();
     }
 
     protected internal void Set(object value, bool SendRpc = true, bool Notify = false)

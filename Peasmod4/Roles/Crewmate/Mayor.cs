@@ -30,14 +30,14 @@ public class Mayor : CustomRole
     public Mayor(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        DoubleVotesAmount = new CustomNumberOption(MultiMenu.Crewmate, "MayorDoubleVoteAmount", "Double-votes amount",
+        DoubleVotesAmount = new CustomNumberOption(MultiMenu.Crewmate, "Mayor.DoubleVoteAmount",
             0f, 1f, new FloatRange(0, 100));
     }
 
-    public override string Name => "Mayor";
-    public override string Description => "Your vote counts twice";
-    public override string LongDescription => "";
-    public override string TaskHint => "Your vote counts twice. Use it wisely!";
+    public override string Name => "role.Mayor.name".Translate();
+    public override string Description => "role.Mayor.Description".Translate();
+    public override string LongDescription => "role.Mayor.LongDescription".Translate();
+    public override string TaskHint => "role.Mayor.TaskHint".Translate();
     public override Color Color => new(17f / 255f, 49f / 255f, 255f / 255f);
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Crewmate;

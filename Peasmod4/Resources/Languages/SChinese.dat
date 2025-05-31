@@ -11,3 +11,159 @@
 "option.CrewSettings.text": "船员设置"
 "option.NeutralSettings.text": "中立设置"
 "option.ImpSettings.text": "内鬼设置"
+
+"role.Captain.name": "船长"
+"role.Captain.Description": "保证你船员的人身安全"
+"role.Captain.LongDescription": ""
+"role.Captain.TaskHint": "保证你船员的人身安全"
+"role.Captain.buttonText": "紧急会议"
+
+"Captain.CallCooldownOption": "远程紧急会议冷却时间"
+
+
+"role.Cloak.name": "隐身人"
+"role.Cloak.Description": "来无影去无踪"
+"role.Cloak.LongDescription": ""
+"role.Cloak.TaskHint": "变得透明并尝试抓住伪装者"
+"role.Cloak.buttonText": "隐身"
+
+"Cloak.CloakHideCooldown": "隐身技能冷却时间"
+"Cloak.CloakHideDuration": "隐身技能持续时间"
+
+
+"role.Doctor.name": "医生"
+"role.Doctor.Description": "保证船员身体健康"
+"role.Doctor.LongDescription": ""
+"role.Doctor.TaskHint": ""
+"role.Doctor.buttonText": "复活"
+
+"Doctor.ReviveCooldown": "复活技能冷却时间"
+
+
+"role.Inspector.name": "调查员"
+"role.Inspector.Description": "默默的跟踪坏人"
+"role.Inspector.LongDescription": ""
+"role.Inspector.TaskHint": ""
+"role.Inspector.buttonText": ""
+
+"Inspector.FootstepVisibleTime": "脚印保留时间"
+"Inspector.TimeBetween": "脚印间隔时间"
+
+
+"role.Mayor.name": "市长"
+"role.Mayor.Description": "你的票更有含金量"
+"role.Mayor.LongDescription": ""
+"role.Mayor.TaskHint": "你的票更有含金量.正确的使用它!"
+"role.Mayor.buttonText": ""
+
+"Mayor.DoubleVoteAmount": "双重投票数量"
+
+
+"role.Sheriff.name": "警长"
+"role.Sheriff.Description": "处决坏人"
+"role.Sheriff.LongDescription": ""
+"role.Sheriff.TaskHint": ""
+"role.Sheriff.buttonText": ""
+
+"Sheriff.CanKillNeutrals": "可以击杀中立职业"
+"Sheriff.InnocentVictimDiesAsWell": "无辜受害者被击杀同样死亡"
+
+
+"role.EvilBuilder.name": "邪恶的建筑师"
+"role.EvilBuilder.Description": "你可以制作管道"
+"role.EvilBuilder.LongDescription": "在飞船上你可以制作出新的管道"
+"role.EvilBuilder.TaskHint": ""
+"role.EvilBuilder.buttonText": "构建"
+
+"EvilBuilder.VentBuildAmount": "最大制作管道数量"
+
+
+"role.Glaciator.name": "冰冻者"
+"role.Glaciator.Description": "冰冻所有人"
+"role.Glaciator.LongDescription": ""
+"role.Glaciator.TaskHint": ""
+"role.Glaciator.buttonText": "冻结"
+
+"Glaciator.FreezeCooldown": "冻结技能冷却时间"
+"Glaciator.FreezeDuration": "冻结持续时间"
+
+
+"role.Janitor.name": "清理者"
+"role.Janitor.Description": "帮助其他伪装者清理尸体"
+"role.Janitor.LongDescription": ""
+"role.Janitor.TaskHint": ""
+"role.Janitor.buttonText": "清理"
+
+"Janitor.CanKill": "可以击杀"
+
+
+"role.Ninja.name": "忍者"
+"role.Ninja.Description": "你可以隐身"
+"role.Ninja.LongDescription": ""
+"role.Ninja.TaskHint": "隐形并悄悄杀死船员们"
+"role.Ninja.buttonText": "隐身"
+
+"Ninja.HideCooldown": "隐身技能冷却"
+"Ninja.HideDuration": "隐身持续时间"
+
+
+"role.Undertaker.name": "送葬者"
+"role.Undertaker.Description": "拖走尸体"
+"role.Undertaker.LongDescription": ""
+"role.Undertaker.TaskHint": ""
+"role.Undertaker.buttonTextDrag": "拿起"
+"role.Undertaker.buttonTextDrop": "放下"
+
+
+"role.Jester.name": "小丑"
+"role.Jester.Description": "欺骗船员"
+"role.Jester.LongDescription": ""
+"role.Jester.TaskHint": "欺骗船员以至于被投出去"
+"role.Jester.buttonText": ""
+"role.Jester.winText": "垂死病中惊坐起
+小丑竟是我自己"
+
+"Jester.CanVent": "可以使用管道"
+
+
+"role.Jinx.name": "幸存者"
+"role.Jinx.Description": "活着"
+"role.Jinx.LongDescription": ""
+"role.Jinx.TaskHint": "做活到最后的人"
+"role.Jinx.buttonText": ""
+"role.Jinx.winText": "幸存者胜利"
+
+
+"role.Traitor.name": "背叛者"
+"role.Traitor.Description": "背叛船员们"
+"role.Traitor.LongDescription": ""
+"role.Traitor.TaskHint": "在你完成任务后背叛船员们"
+"role.Traitor.buttonText": ""
+"role.Traitor.winText": ""
+
+
+"role.Troll.name": "瘟疫之源"
+"role.Troll.Description": "被杀死"
+"role.Troll.LongDescription": ""
+"role.Troll.TaskHint": "被杀死"
+"role.Troll.buttonText": "感染"
+"role.Troll.winText": "瘟疫之源胜利"
+
+
+"role.Zombie.name": "僵尸"
+"role.Zombie.Description": "感染所有船员"
+"role.Zombie.LongDescription": "将僵尸病毒传播给其他所有船员，把他们也变成僵尸，但注意！
+你无法感染内鬼，因为他们已携带不同的病毒。"
+"role.Zombie.TaskHint": "感染所有船员"
+"role.Zombie.buttonText": ""
+"role.Zombie.winText": "僵尸感染了所有人"
+
+"Zombie.Reach": "距离"
+"Zombie.Reach.Small": "短"
+"Zombie.Reach.Medium": "中"
+"Zombie.Reach.Long": "长"
+
+"Zombie.InfectCooldown": "感染技能冷却"
+"Zombie.SpeedMod": "速度增加"
+"Zombie.LightMod": "视野增加"
+"Zombie.VisibleToEveryone": "所有人可见"

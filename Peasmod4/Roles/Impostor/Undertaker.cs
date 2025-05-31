@@ -28,9 +28,11 @@ public class Undertaker : CustomRole
         RoleOption = new CustomRoleOption(this);
     }
 
-    public override string Name => "Undertaker";
-    public override string Description => "Drag the bodies away";
-    public override string LongDescription => "";
+    public override string Name => "role.Undertaker.name".Translate();
+    public override string Description => "role.Undertaker.Description".Translate();
+    public override string LongDescription => "role.Undertaker.LongDescription".Translate();
+    public override string TaskHint => "role.Undertaker.TaskHint".Translate();
+
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
@@ -43,14 +45,14 @@ public class Undertaker : CustomRole
             {
                 DragBody.RpcDragBody(PlayerControl.LocalPlayer, true,
                     DragBodyButton.ObjectTarget.GetComponent<DeadBody>().ParentId);
-            }, "Drag", ResourceManager.DragBodyButton, player => player.IsCustomRole(this) && !player.Data
+            }, "role.Undertaker.buttonTextDrag", ResourceManager.DragBodyButton, player => player.IsCustomRole(this) && !player.Data
                 .IsDead, player => !player.IsDraggingABody(), new CustomButton.CustomButtonOptions(
                 targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
                 () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f),
                 targetOutline: Color));
 
         DropBodyButton = new CustomButton("Undertaker-DropBody",
-            () => { DragBody.RpcDragBody(PlayerControl.LocalPlayer, false, byte.MaxValue); }, "Drop",
+            () => { DragBody.RpcDragBody(PlayerControl.LocalPlayer, false, byte.MaxValue); }, "role.Undertaker.buttonTextDrop",
             ResourceManager.DropBodyButton, player => player.IsCustomRole(this) && !player.Data
                 .IsDead, player => player.IsDraggingABody());
     }

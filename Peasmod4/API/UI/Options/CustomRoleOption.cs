@@ -9,14 +9,12 @@ public class CustomRoleOption : CustomOption
     internal CustomNumberOption countOption;
 
     protected internal CustomRoleOption(CustomRole customRole, MultiMenu menu = MultiMenu.NULL) : base(num++,
-        menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu, "roleOption",
+        menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu,
         Utility.ColorString(customRole.Color, customRole.Name), CustomOptionType.Header, 0)
     {
-        chanceOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu,
-            $"{customRole.Name}ChanceOption", "roleOption.chanceOption.text", 0, 10, new FloatRange(0, 100), PercentFormat,
+        chanceOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu, "roleOption.chanceOption.text", 0, 10, new FloatRange(0, 100), PercentFormat,
             CustomRoleOptionType.Chance, customRole);
-        countOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu,
-            $"{customRole.Name}CountOption", "roleOption.countOption.text", 1, 1, new FloatRange(1, 15), null,
+        countOption = new CustomNumberOption(menu == MultiMenu.NULL ? GetMultiMenu(customRole) : menu, "roleOption.countOption.text", 1, 1, new FloatRange(1, 15), null,
             CustomRoleOptionType.Count, customRole);
     }
 

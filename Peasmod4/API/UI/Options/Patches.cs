@@ -69,7 +69,7 @@ public static class Patches
                         if (option.Type == CustomOptionType.Number)
                         {
                             var number = option.Setting.Cast<NumberOption>();
-                            number.TitleText.text = option.Name;
+                            number.TitleText.text = option.GetName();
                             if (number.TitleText.text.StartsWith("<color="))
                                 number.TitleText.fontSize = 3f;
                             else if (number.TitleText.text.Length > 20)
@@ -82,7 +82,7 @@ public static class Patches
                         else if (option.Type == CustomOptionType.Toggle)
                         {
                             var tgl = option.Setting.Cast<ToggleOption>();
-                            tgl.TitleText.text = option.Name;
+                            tgl.TitleText.text = option.GetName();
                             if (tgl.TitleText.text.Length > 20)
                                 tgl.TitleText.fontSize = 2.25f;
                             else if (tgl.TitleText.text.Length > 40)
@@ -93,19 +93,8 @@ public static class Patches
                         else if (option.Type == CustomOptionType.String)
                         {
                             var playerCount = GameOptionsManager.Instance.currentNormalGameOptions.MaxPlayers;
-                            if (option.Name.StartsWith("Slot "))
-                                try
-                                {
-                                    var slotNumber = int.Parse(option.Name[5..]);
-                                    if (slotNumber > GameOptionsManager.Instance.currentNormalGameOptions.MaxPlayers)
-                                        continue;
-                                }
-                                catch
-                                {
-                                }
-
                             var str = option.Setting.Cast<StringOption>();
-                            str.TitleText.text = option.Name;
+                            str.TitleText.text = option.GetName();
                             if (str.TitleText.text.Length > 20)
                                 str.TitleText.fontSize = 2.25f;
                             else if (str.TitleText.text.Length > 40)
@@ -226,7 +215,7 @@ public static class Patches
                     new Action<float>(p =>
                     {
                         button.transform.FindChild("FontPlacer").GetComponentInChildren<TextMeshPro>().text =
-                            text.Translate();
+                            Language.GetString(text);
                     })));
                 var passiveButton = button.GetComponent<PassiveButton>();
                 passiveButton.OnClick.RemoveAllListeners();
@@ -256,7 +245,7 @@ public static class Patches
                         var header = Object.Instantiate(tabOptions.categoryHeaderOrigin, Vector3.zero,
                             Quaternion.identity, tabOptions.settingsContainer);
                         header.SetHeader(StringNames.ImpostorsCategory, 20);
-                        header.Title.text = option.Name;
+                        header.Title.text = option.GetName();
                         header.transform.localScale = Vector3.one * 0.65f;
                         header.transform.localPosition = new Vector3(-0.9f, num, -2f);
                         num -= 0.625f;
@@ -298,16 +287,6 @@ public static class Patches
                     else if (option.Type == CustomOptionType.String)
                     {
                         var playerCount = GameOptionsManager.Instance.currentNormalGameOptions.MaxPlayers;
-                        if (option.Name.StartsWith("Slot "))
-                            try
-                            {
-                                var slotNumber = int.Parse(option.Name[5..]);
-                                if (slotNumber > GameOptionsManager.Instance.currentNormalGameOptions.MaxPlayers)
-                                    continue;
-                            }
-                            catch
-                            {
-                            }
 
                         OptionBehaviour optionBehaviour = Object.Instantiate(tabOptions.stringOptionOrigin,
                             Vector3.zero, Quaternion.identity, tabOptions.settingsContainer);
@@ -361,7 +340,7 @@ public static class Patches
             {
                 var name = splitText[0].Trim();
                 splitText.RemoveAt(0);
-                var option = CustomOption.AllOptions.FirstOrDefault(o => o.Name.Equals(name, StringComparison.Ordinal));
+                var option = CustomOption.AllOptions.FirstOrDefault(o => o.GetName().Equals(name, StringComparison.Ordinal));
                 if (option == null)
                 {
                     try
@@ -402,7 +381,7 @@ public static class Patches
             foreach (var option in CustomOption.AllOptions)
             {
                 if (option.Type is CustomOptionType.Button or CustomOptionType.Header) continue;
-                builder.AppendLine(option.Name);
+                builder.AppendLine(option.GetName());
                 builder.AppendLine($"{option.ValueObject}");
             }
 
@@ -499,8 +478,8 @@ public static class Patches
                     new Action<float>(p =>
                     {
                         tab.transform.FindChild("FontPlacer").GetComponentInChildren<TextMeshPro>().text =
-                            text.Translate();
-                    })));
+							Language.GetString(text);
+					})));
                 var pTab = tab.GetComponent<PassiveButton>();
                 pTab.OnClick.RemoveAllListeners();
                 pTab.OnClick.AddListener((Action)(() => { __instance.ChangeTab((StringNames)target); }));
@@ -525,7 +504,7 @@ public static class Patches
                     if (settingsThisHeader % 2 != 0) num -= 0.85f;
                     var header = Object.Instantiate(__instance.categoryHeaderOrigin);
                     header.SetHeader(StringNames.ImpostorsCategory, 61);
-                    header.Title.text = option.Name;
+                    header.Title.text = option.GetName();
                     header.transform.SetParent(__instance.settingsContainer);
                     header.transform.localScale = Vector3.one;
                     header.transform.localPosition = new Vector3(-9.8f, num, -2f);
@@ -556,7 +535,7 @@ public static class Patches
 
                     settingsThisHeader += 1;
                     panel.SetInfo(StringNames.ImpostorsCategory, option.ToString(), 61);
-                    panel.titleText.text = option.Name;
+                    panel.titleText.text = option.GetName();
                     __instance.settingsInfo.Add(panel.gameObject);
                 }
 

@@ -32,12 +32,12 @@ public class TestRole : CustomRole
         HudEventManager.HudUpdateEventHandler += OnHudUpdate;
 
         CustomRoleOption1 = new CustomRoleOption(this, MultiMenu.Main);
-        TestOption = new CustomToggleOption(MultiMenu.Main, "TestOption", "Test123", false);
-        TestOption4 = new CustomNumberOption(MultiMenu.Main, "TestOption4", "Test3214", 2.3f, 0.3f,
+        TestOption = new CustomToggleOption(MultiMenu.Main, "Test123", false);
+        TestOption4 = new CustomNumberOption(MultiMenu.Main, "Test3214", 2.3f, 0.3f,
             new FloatRange(0f, 3f), CustomOption.MultiplierFormat);
-        TestOption5 = new CustomNumberOption(MultiMenu.Main, "TestOption5", "Test3215", 2f, 1, new FloatRange(0, 7));
+        TestOption5 = new CustomNumberOption(MultiMenu.Main, "Test3215", 2f, 1, new FloatRange(0, 7));
         TestOption6 =
-            new CustomStringOption(MultiMenu.Main, "TestOption6", "test", new[] { "hallo", "mitte", "tschüs!" });
+            new CustomStringOption(MultiMenu.Main, "test", new[] { "hallo", "mitte", "tschüs!" });
     }
 
     public override string Name => "Peasplayer";

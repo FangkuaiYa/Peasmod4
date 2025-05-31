@@ -28,10 +28,10 @@ public class Troll : CustomRole
         RoleOption = new CustomRoleOption(this);
     }
 
-    public override string Name => "Troll";
-    public override string Description => "Get killed";
-    public override string LongDescription => "";
-    public override string TaskHint => "Get killed";
+    public override string Name => "role.Troll.name".Translate();
+    public override string Description => "role.Troll.Description".Translate();
+    public override string LongDescription => "role.Troll.LongDescription".Translate();
+    public override string TaskHint => "role.Troll.TaskHint".Translate();
     public override Color Color => Palette.AcceptedGreen;
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Alone;
@@ -50,7 +50,7 @@ public class Troll : CustomRole
             {
                 PeasmodPlugin.Logger.LogInfo("Registered Reason: " + player.name);
                 EndReasons.Add(player.PlayerId,
-                    CustomEndGameManager.RegisterCustomEndReason("Troll won", Color, false, false));
+                    CustomEndGameManager.RegisterCustomEndReason("role.Troll.winText", Color, false, false));
             }
     }
 

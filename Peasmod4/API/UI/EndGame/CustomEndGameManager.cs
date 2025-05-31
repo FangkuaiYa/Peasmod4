@@ -27,7 +27,7 @@ public class CustomEndGameManager
         bool impostorWon)
     {
         var reason =
-            new CustomEndReason((GameOverReason)10 + EndReasonsId++, reasonText, color, crewWon, impostorWon);
+            new CustomEndReason((GameOverReason)10 + EndReasonsId++, reasonText.Translate(), color, crewWon, impostorWon);
         EndReasons.Add(reason);
         return reason;
     }

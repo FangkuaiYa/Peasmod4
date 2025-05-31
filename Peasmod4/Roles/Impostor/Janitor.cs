@@ -26,12 +26,14 @@ public class Janitor : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
 
         RoleOption = new CustomRoleOption(this);
-        CanKillOption = new CustomToggleOption(MultiMenu.Impostor, "Janitor.CanKill", "Can kill", false);
+        CanKillOption = new CustomToggleOption(MultiMenu.Impostor, "Janitor.CanKill", false);
     }
 
-    public override string Name => "Janitor";
-    public override string Description => "Clean dead bodies of the other Impostors";
-    public override string LongDescription => "";
+    public override string Name => "role.Janitor.name".Translate();
+    public override string Description => "role.Janitor.Description".Translate();
+    public override string LongDescription => "role.Janitor.LongDescription".Translate();
+    public override string TaskHint => "role.Janitor.TaskHint".Translate();
+
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
@@ -48,7 +50,7 @@ public class Janitor : CustomRole
     {
         CleanButton = new CustomButton("Janitor.CleanButton",
             () => PlayerControl.LocalPlayer.RpcRemoveBody(CleanButton.ObjectTarget.GetComponent<DeadBody>().ParentId),
-            "Clean", ResourceManager.PlaceholderButton,
+            "role.Janitor.buttonText", ResourceManager.PlaceholderButton,
             player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true,
             new CustomButton.CustomButtonOptions(targetType: CustomButton.CustomButtonOptions.TargetType.Object,
                 targetOutline: Palette.ImpostorRed,

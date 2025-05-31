@@ -27,10 +27,10 @@ public class Traitor : CustomRole
         RoleOption = new CustomRoleOption(this);
     }
 
-    public override string Name => "Traitor";
-    public override string Description => "Betray the crewmates";
-    public override string LongDescription => "";
-    public override string TaskHint => "Betray the crewmates after you completed your tasks";
+    public override string Name => "role.Traitor.name".Translate();
+    public override string Description => "role.Traitor.Description".Translate();
+    public override string LongDescription => "role.Traitor.LongDescription".Translate();
+    public override string TaskHint => "role.Traitor.TaskHint".Translate();
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => HasBetrayed ? Enums.Visibility.Impostor : Enums.Visibility.NoOne;
     public override Enums.Team Team => HasBetrayed ? Enums.Team.Impostor : Enums.Team.Alone;

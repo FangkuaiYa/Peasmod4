@@ -31,10 +31,10 @@ public class Jinx : CustomRole
         RoleOption = new CustomRoleOption(this);
     }
 
-    public override string Name => "Jinx";
-    public override string Description => "Survive the longest";
-    public override string LongDescription => "";
-    public override string TaskHint => "Be one of the last three survivors";
+    public override string Name => "role.Jinx.name".Translate();
+    public override string Description => "role.Jinx.Description".Translate();
+    public override string LongDescription => "role.Jinx.LongDescription".Translate();
+    public override string TaskHint => "role.Jinx.TaskHint".Translate();
     public override Color Color => new(58 / 256f, 13 / 255f, 58 / 255f);
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Alone;
@@ -54,7 +54,7 @@ public class Jinx : CustomRole
             {
                 PeasmodPlugin.Logger.LogInfo("Registered Reason: " + player.name);
                 EndReasons.Add(player.PlayerId,
-                    CustomEndGameManager.RegisterCustomEndReason("Jinx won", Color, false, false));
+                    CustomEndGameManager.RegisterCustomEndReason("role.Jinx.winText", Color, false, false));
             }
     }
 

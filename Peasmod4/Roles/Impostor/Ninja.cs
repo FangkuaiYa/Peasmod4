@@ -27,17 +27,17 @@ public class Ninja : CustomRole
         GameEventManager.GameStartEventHandler += OnGameStart;
 
         RoleOption = new CustomRoleOption(this);
-        HideCooldown = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideCooldown", "Hide cooldown", 20f, 2.5f,
+        HideCooldown = new CustomNumberOption(MultiMenu.Impostor, "Ninja.HideCooldown", 20f, 2.5f,
             new FloatRange(0, 100), CustomOption.CooldownFormat);
-        HideDuration = new CustomNumberOption(MultiMenu.Impostor, "NinjaHideDuration", "Hide duration", 5f, 2.5f,
+        HideDuration = new CustomNumberOption(MultiMenu.Impostor, "Ninja.HideDuration", 5f, 2.5f,
             new FloatRange(0, 50), CustomOption.CooldownFormat);
     }
 
-    public override string Name => "Ninja";
+    public override string Name => "role.Ninja.name".Translate();
     public override Sprite Icon => ResourceManager.TurnInvisibleButton;
-    public override string Description => "You can go invisible";
-    public override string LongDescription => "";
-    public override string TaskHint => "Go invisbile and kill the crewmates secretly";
+    public override string Description => "role.Ninja.Description".Translate();
+    public override string LongDescription => "role.Ninja.LongDescription".Translate();
+    public override string TaskHint => "role.Ninja.TaskHint".Translate();
     public override Color Color => Palette.ImpostorRed;
     public override Enums.Visibility Visibility => Enums.Visibility.Impostor;
     public override Enums.Team Team => Enums.Team.Impostor;
@@ -50,7 +50,7 @@ public class Ninja : CustomRole
             {
                 Rpc<TurnInvisible.RpcTurnInvisible>.Instance.Send(
                     new TurnInvisible.RpcTurnInvisible.Data(PlayerControl.LocalPlayer, true));
-            }, "Hide", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f),
+            }, "role.Ninja.buttonText", Utility.CreateSprite("Peasmod4.Resources.Buttons.TurnInvisible.png", 794f),
             player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true, new CustomButton.CustomButtonOptions(
                 HideCooldown.Value, true, HideDuration.Value,
                 () =>

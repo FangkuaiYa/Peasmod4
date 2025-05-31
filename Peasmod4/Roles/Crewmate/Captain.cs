@@ -24,16 +24,15 @@ public class Captain : CustomRole
         GameEventManager.GameStartEventHandler += OnStart;
 
         RoleOption = new CustomRoleOption(this);
-        CallCooldownOption =
-            new CustomNumberOption(MultiMenu.Crewmate, "CaptainCallingCooldown", "Calling cooldown", 10, 1,
-                new FloatRange(10, 60), CustomOption.CooldownFormat);
+        CallCooldownOption = new CustomNumberOption(MultiMenu.Crewmate, "Captain.CallCooldownOption", 10, 1,
+            new FloatRange(10, 60), CustomOption.CooldownFormat);
     }
 
-    public override string Name => "Captain";
+    public override string Name => "role.Captain.name".Translate();
     public override Sprite Icon => ResourceManager.CallMeetingButton;
-    public override string Description => "Keep your crew safe";
-    public override string LongDescription => "";
-    public override string TaskHint => "Keep your crew safe";
+    public override string Description => "role.Captain.Description".Translate();
+    public override string LongDescription => "role.Captain.LongDescription".Translate();
+    public override string TaskHint => "role.Captain.TaskHint".Translate();
     public override Color Color => Palette.LightBlue;
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Crewmate;
@@ -42,7 +41,7 @@ public class Captain : CustomRole
     public void OnStart(object sender, EventArgs args)
     {
         CallButton = new CustomButton("CaptainCall", () => { PlayerControl.LocalPlayer.CmdReportDeadBody(null); },
-            "Call", Icon, player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true,
+            "role.Captain.buttonText", Icon, player => player.IsCustomRole(this) && !player.Data.IsDead, _ => true,
             new CustomButton.CustomButtonOptions(CallCooldownOption.Value));
     }
 }

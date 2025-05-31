@@ -25,15 +25,16 @@ public class Doctor : CustomRole
     public Doctor(Assembly assembly) : base(assembly)
     {
         RoleOption = new CustomRoleOption(this);
-        ReviveCooldown = new CustomNumberOption(MultiMenu.Crewmate, "Doctor.ReviveCooldown", "Revive cooldown", 20f, 5f,
+        ReviveCooldown = new CustomNumberOption(MultiMenu.Crewmate, "Doctor.ReviveCooldown", 20f, 5f,
             new FloatRange(0f, 120f), CustomOption.CooldownFormat);
 
         GameEventManager.GameStartEventHandler += OnGameStart;
     }
 
-    public override string Name => "Doctor";
-    public override string Description => "Heal the crew";
-    public override string LongDescription => "";
+    public override string Name => "role.Doctor.name".Translate();
+    public override string Description => "role.Doctor.Description".Translate();
+    public override string LongDescription => "role.Doctor.LongDescription".Translate();
+    public override string TaskHint => "role.Doctor.TaskHint".Translate();
     public override Color Color => Color.green;
     public override Enums.Visibility Visibility => Enums.Visibility.NoOne;
     public override Enums.Team Team => Enums.Team.Crewmate;
@@ -49,7 +50,7 @@ public class Doctor : CustomRole
             player.RpcRevive();
             player.NetTransform.RpcSnapTo(body.TruePosition);
             //ReviveButton.ObjectTarget.Destroy();
-        }, "Revive", ResourceManager.RevivePlayerButton, player => player.IsCustomRole(this) && !player.Data
+        }, "role.Doctor.buttonText", ResourceManager.RevivePlayerButton, player => player.IsCustomRole(this) && !player.Data
             .IsDead, _ => true, new CustomButton.CustomButtonOptions(
             targetType: CustomButton.CustomButtonOptions.TargetType.Object, objectTargetSelector:
             () => PlayerControl.LocalPlayer.FindNearestObject(obj => obj.GetComponent<DeadBody>(), 1f),
